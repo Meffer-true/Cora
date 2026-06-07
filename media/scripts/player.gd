@@ -4,15 +4,22 @@ var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 @onready var camera = $Camera3D
 
-@export var speed : int = 10
+@export var base_speed : int = 10
 @export var mouse_sensitivity : float = 0.002
 @export var jump_velocity: float = 5.0
+@export var run_multiplier : float = 2.0
+
+var speed : float
 
 func _physics_process(delta: float) -> void:
 	if !is_on_floor():
 		velocity.y -= gravity * delta
 	if Input.is_action_just_pressed("space") and is_on_floor():
 		velocity.y = jump_velocity
+	if Input.is_action_pressed("shift"):
+		speed = base_speed * run_multiplier
+	else:
+		speed = base_speed
 	var raw_dir = Input.get_vector("a","d","w","s")
 	var dir = (transform.basis * Vector3(raw_dir.x, 0, raw_dir.y)).normalized()
 	velocity.x = dir.x * speed

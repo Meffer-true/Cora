@@ -20,6 +20,7 @@ noise = SubResource("FastNoiseLite_ltnff")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sq5bk"]
 albedo_color = Color(0.305475, 0.45, 0.2655, 1)
 albedo_texture = SubResource("NoiseTexture2D_vbhsi")
+metallic_specular = 0.0
 
 [sub_resource type="BoxMesh" id="BoxMesh_l0di1"]
 material = SubResource("StandardMaterial3D_sq5bk")
@@ -45,4 +46,4 @@ mesh = SubResource("BoxMesh_l0di1")
 shape = SubResource("BoxShape3D_dmcnl")
 
 [node name="player" parent="." unique_id=821521582 instance=ExtResource("1_ltnff")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.084309, 49.223557, 20.437325)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.084309, 6.8135223, 20.437325)
