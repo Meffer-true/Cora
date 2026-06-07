@@ -11,8 +11,15 @@ sky_material = SubResource("ProceduralSkyMaterial_3elnk")
 background_mode = 2
 sky = SubResource("Sky_ltnff")
 
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ltnff"]
+frequency = 0.4814
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_vbhsi"]
+noise = SubResource("FastNoiseLite_ltnff")
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sq5bk"]
 albedo_color = Color(0.305475, 0.45, 0.2655, 1)
+albedo_texture = SubResource("NoiseTexture2D_vbhsi")
 
 [sub_resource type="BoxMesh" id="BoxMesh_l0di1"]
 material = SubResource("StandardMaterial3D_sq5bk")
@@ -38,4 +45,4 @@ mesh = SubResource("BoxMesh_l0di1")
 shape = SubResource("BoxShape3D_dmcnl")
 
 [node name="player" parent="." unique_id=821521582 instance=ExtResource("1_ltnff")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.084309, 2.2358599, 20.437325)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.084309, 49.223557, 20.437325)
