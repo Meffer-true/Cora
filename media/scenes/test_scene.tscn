@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://c7t6wgyum06v5"]
 
 [ext_resource type="PackedScene" uid="uid://bpkungga8bewb" path="res://media/scenes/player.tscn" id="1_ltnff"]
+[ext_resource type="Script" uid="uid://ca3xohki8myiu" path="res://media/scripts/test_scene.gd" id="1_vbhsi"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_3elnk"]
 
@@ -28,6 +29,7 @@ material = SubResource("StandardMaterial3D_sq5bk")
 [sub_resource type="BoxShape3D" id="BoxShape3D_dmcnl"]
 
 [node name="test_scene" type="Node3D" unique_id=2109658335]
+script = ExtResource("1_vbhsi")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=589497891]
 transform = Transform3D(1, 0, 0, 0, 0.95222545, 0.30539617, 0, -0.30539617, 0.95222545, 0, 33.601982, -53.65898)
@@ -46,4 +48,4 @@ mesh = SubResource("BoxMesh_l0di1")
 shape = SubResource("BoxShape3D_dmcnl")
 
 [node name="player" parent="." unique_id=821521582 instance=ExtResource("1_ltnff")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.084309, 6.8135223, 20.437325)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.330998, 10, 0)
