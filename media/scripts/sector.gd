@@ -87,9 +87,14 @@ func test_generate() -> void:
 				elif y > 4:
 					blocks[idx] = 2
 
-func _create_face(st: SurfaceTool, pos: Vector3, direction: Vector3i) -> void:
+func _create_face(st: SurfaceTool, pos: Vector3, direction: Vector3i, color: Color) -> void:
 	var face_info = FACE_DATA[direction]
 	st.set_normal(face_info["normal"])
+	
+	# Устанавливаем цвет перед добавлением вершин. 
+	# SurfaceTool применит этот цвет ко всем вершинам, добавленным ниже.
+	st.set_color(color) 
+	
 	for vertex_offset in face_info["vertices"]:
 		st.add_vertex(pos + vertex_offset)
 
@@ -97,31 +102,34 @@ func update():
 	var st = SurfaceTool.new()
 	st.begin(Mesh.PRIMITIVE_TRIANGLES)
 	
-	var green_material = StandardMaterial3D.new()
-	var gray_material = StandardMaterial3D.new()
-	green_material.albedo_color = Color(0.2, 0.6, 0.2)
-	gray_material.albedo_color = Color(0.6, 0.6, 0.6, 1.0)
-	#st.set_material(material)
+	# Создаем ОДИН материал для всего чанка
+	var chunk_material = StandardMaterial3D.new()
+	# КРИТИЧЕСКИ ВАЖНО: говорим материалу использовать цвет из вершин, а не игнорировать его
+	chunk_material.vertex_color_use_as_albedo = true
+	st.set_material(chunk_material)
 	
 	for x in SIZE:
 		for y in SIZE:
 			for z in SIZE:
-				var block_id = _get_block_id(x,y,z)
+				var block_id = _get_block_id(x, y, z)
 				if block_id != 0:
+					# Определяем цвет в зависимости от ID вокселя
+					var block_color : Color
 					if block_id == 1:
-						st.set_material(gray_material)
+						block_color = Color(1.0, 0.0, 0.0, 1.0) # Серый каменный низ
 					elif block_id == 2:
-						st.set_material(green_material)
+						block_color = Color(1.0, 1.0, 1.0, 1.0) # Зеленый травяной верх
+						
 					var block_pos = Vector3(x, y, z)
-					print("Id is %s, then material is " % [block_id])
+					
 					for dir_key in FACE_DATA.keys():
 						var neighbor_x = x + dir_key.x
 						var neighbor_y = y + dir_key.y
 						var neighbor_z = z + dir_key.z
 						
-						# Если сосед — воздух, рисуем грань
 						if _get_block_id(neighbor_x, neighbor_y, neighbor_z) == 0:
-							_create_face(st, block_pos, dir_key)
+							# Передаем цвет в генератор грани
+							_create_face(st, block_pos, dir_key, block_color)
 							
 	var array_mesh = st.commit()
 	mesh_instance.mesh = array_mesh
