@@ -39,7 +39,7 @@ shadow_enabled = true
 environment = SubResource("Environment_vbhsi")
 
 [node name="plate" type="StaticBody3D" parent="." unique_id=83215151]
-transform = Transform3D(73.38721, 0, 0, 0, 1, 0, 0, 0, 73.38721, 0, 0, 0)
+transform = Transform3D(73.38721, 0, 0, 0, 1, 0, 0, 0, 73.38721, -13.824299, 3.4709415, -11.979355)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="plate" unique_id=1375669833]
 mesh = SubResource("BoxMesh_l0di1")
@@ -48,4 +48,4 @@ mesh = SubResource("BoxMesh_l0di1")
 shape = SubResource("BoxShape3D_dmcnl")
 
 [node name="player" parent="." unique_id=821521582 instance=ExtResource("1_ltnff")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.330998, 10, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.441978, 12.600866, -36.736984)

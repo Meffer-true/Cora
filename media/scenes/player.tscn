@@ -10,14 +10,20 @@
 script = ExtResource("1_mtsjp")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=487227135]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 mesh = SubResource("CapsuleMesh_4ulqu")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=150293761]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_mtsjp")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1719507618]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5329993, -0.52640533)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.27536738, -0.24259874)
 current = true
 fov = 90.0
 near = 0.001
 far = 4114.6
+
+[node name="RayCast3D" type="RayCast3D" parent="Camera3D" unique_id=1303725413]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.03725916, -0.3388199)
+target_position = Vector3(0, 0, -5)

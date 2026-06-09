@@ -3,13 +3,46 @@ extends CharacterBody3D
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 @onready var camera = $Camera3D
+@onready var raycast = $Camera3D/RayCast3D
 
-@export var base_speed : int = 10
+@export var base_speed : int = 5
 @export var mouse_sensitivity : float = 0.002
 @export var jump_velocity: float = 5.0
 @export var run_multiplier : float = 2.0
 
 var speed : float
+
+func interact_with_voxel(is_placing: bool, new_block_id: int = 1) -> void:
+	if not raycast.is_colliding():
+		return
+	var collider = raycast.get_collider()
+	if not collider is Sector:
+		return
+	var sector: Sector = collider
+	var hit_point: Vector3 = raycast.get_collision_point()
+	var hit_normal: Vector3 = raycast.get_collision_normal()
+	var local_point: Vector3 = sector.to_local(hit_point)
+	var local_normal: Vector3 = sector.global_transform.basis.inverse() * hit_normal
+	local_normal = local_normal.normalized()
+	
+	const EPSILON: float = 0.001
+	var target_voxel_pos: Vector3
+	
+	if is_placing:
+		# Установка: сдвигаемся НАРУЖУ по нормали
+		target_voxel_pos = local_point + (local_normal * EPSILON)
+	else:
+		# Разрушение: сдвигаемся ВНУТРЬ против нормали
+		target_voxel_pos = local_point - (local_normal * EPSILON)
+		
+	# 4. Округляем вниз для получения целых координат сетки
+	var voxel_coords: Vector3i = Vector3i(target_voxel_pos.floor())
+	
+	# 5. Передаем координаты в API сектора
+	if is_placing:
+		sector.set_block(voxel_coords.x, voxel_coords.y, voxel_coords.z, new_block_id)
+	else:
+		sector.set_block(voxel_coords.x, voxel_coords.y, voxel_coords.z, 0) # 0 - Воздух
 
 func _physics_process(delta: float) -> void:
 	if !is_on_floor():
@@ -31,3 +64,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		rotate_y(-event.relative.x * mouse_sensitivity)
 		camera.rotate_x(-event.relative.y * mouse_sensitivity)
 		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-89), deg_to_rad(89))
+	if event.is_action_pressed("lmb"):
+		interact_with_voxel(false, 1)
+	elif event.is_action_pressed("rmb"):
+		interact_with_voxel(true, 1)

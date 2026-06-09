@@ -77,15 +77,25 @@ func _get_block_id(x: int, y: int, z: int) -> int:
 		return blocks[_get_index(x, y, z)]
 	return 0
 
-func test_generate() -> void:
+func set_block(x: int, y: int, z: int, block_id: int) -> void:
+	if _is_inside(x, y, z): # Проверка границ сектора 
+		var idx = _get_index(x, y, z) # Получение индекса 1D массива 
+		if blocks[idx] != block_id:
+			blocks[idx] = block_id
+			update() # Запуск пересборки геометрии
+
+func test_generate(type:int) -> void:
 	for x in SIZE:
 		for y in SIZE:
 			for z in SIZE:
 				var idx : int = _get_index(x, y, z)
-				if y <= 4:
-					blocks[idx] = 1
-				elif y > 4:
-					blocks[idx] = 2
+				if type == 0:
+					blocks[idx] = 0
+				elif type == 1:
+					if y <= 4:
+						blocks[idx] = 1
+					elif y > 4:
+						blocks[idx] = 2
 
 func _create_face(st: SurfaceTool, pos: Vector3, direction: Vector3i, color: Color) -> void:
 	var face_info = FACE_DATA[direction]
@@ -113,27 +123,20 @@ func update():
 			for z in SIZE:
 				var block_id = _get_block_id(x, y, z)
 				if block_id != 0:
-					# Определяем цвет в зависимости от ID вокселя
 					var block_color : Color
 					if block_id == 1:
-						block_color = Color(1.0, 0.0, 0.0, 1.0) # Серый каменный низ
+						block_color = Color(1.0, 0.0, 0.0, 1.0)
 					elif block_id == 2:
-						block_color = Color(1.0, 1.0, 1.0, 1.0) # Зеленый травяной верх
-						
+						block_color = Color(1.0, 1.0, 1.0, 1.0)
 					var block_pos = Vector3(x, y, z)
-					
 					for dir_key in FACE_DATA.keys():
 						var neighbor_x = x + dir_key.x
 						var neighbor_y = y + dir_key.y
 						var neighbor_z = z + dir_key.z
-						
 						if _get_block_id(neighbor_x, neighbor_y, neighbor_z) == 0:
-							# Передаем цвет в генератор грани
 							_create_face(st, block_pos, dir_key, block_color)
-							
 	var array_mesh = st.commit()
 	mesh_instance.mesh = array_mesh
-	
 	if array_mesh.get_surface_count() > 0:
 		collision_shape.shape = array_mesh.create_trimesh_shape()
 	print(str(name) + "'s updated.")
