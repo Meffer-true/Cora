@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bpkungga8bewb" path="res://media/scenes/player.tscn" id="1_ltnff"]
 [ext_resource type="Script" uid="uid://ca3xohki8myiu" path="res://media/scripts/test_scene.gd" id="1_vbhsi"]
+[ext_resource type="Script" uid="uid://djebqw8kgxqh7" path="res://media/scripts/world_manager.gd" id="3_sq5bk"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_3elnk"]
 
@@ -29,6 +30,7 @@ material = SubResource("StandardMaterial3D_sq5bk")
 [sub_resource type="BoxShape3D" id="BoxShape3D_dmcnl"]
 
 [node name="test_scene" type="Node3D" unique_id=2109658335]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 44.143875)
 script = ExtResource("1_vbhsi")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=589497891]
@@ -49,3 +51,6 @@ shape = SubResource("BoxShape3D_dmcnl")
 
 [node name="player" parent="." unique_id=821521582 instance=ExtResource("1_ltnff")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.441978, 12.600866, -36.736984)
+
+[node name="WorldManager" type="Node3D" parent="." unique_id=542104430]
+script = ExtResource("3_sq5bk")

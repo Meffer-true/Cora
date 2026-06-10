@@ -52,7 +52,7 @@ const FACE_DATA: Dictionary = {
 var sector_pos : Vector3i
 var blocks : Array[int] = []
 
-var mesh_instance: MeshInstance3D
+var mesh_instance: MeshInstance3D 
 var collision_shape: CollisionShape3D
 
 func _ready() -> void:
@@ -136,7 +136,11 @@ func update():
 						if _get_block_id(neighbor_x, neighbor_y, neighbor_z) == 0:
 							_create_face(st, block_pos, dir_key, block_color)
 	var array_mesh = st.commit()
-	mesh_instance.mesh = array_mesh
-	if array_mesh.get_surface_count() > 0:
-		collision_shape.shape = array_mesh.create_trimesh_shape()
-	print(str(name) + "'s updated.")
+	if mesh_instance != null:
+		mesh_instance.mesh = array_mesh
+		if array_mesh.get_surface_count() > 0:
+			collision_shape.shape = array_mesh.create_trimesh_shape()
+			print(str(name) + "'s updated.")
+	else:
+		push_error("Mesh_i is empty!")
+	

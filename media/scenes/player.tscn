@@ -27,3 +27,18 @@ far = 4114.6
 [node name="RayCast3D" type="RayCast3D" parent="Camera3D" unique_id=1303725413]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.03725916, -0.3388199)
 target_position = Vector3(0, 0, -5)
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=71558749]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -6.5
+offset_top = -6.5
+offset_right = 6.5
+offset_bottom = 6.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.38, 0.38, 0.38, 0.24313726)
