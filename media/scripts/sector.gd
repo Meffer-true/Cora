@@ -78,7 +78,11 @@ func _get_block_id(x: int, y: int, z: int) -> int:
 	return 0
 
 func set_block(x: int, y: int, z: int, block_id: int) -> void:
-	if _is_inside(x, y, z): # Проверка границ сектора 
+	print("S: Начинаем установку блока.")
+	if !_is_inside(x, y, z): # Проверка границ сектора 
+		print("Блок вне границ сектора!")
+	else:
+		print("Блок в границах сектора.")
 		var idx = _get_index(x, y, z) # Получение индекса 1D массива 
 		if blocks[idx] != block_id:
 			blocks[idx] = block_id

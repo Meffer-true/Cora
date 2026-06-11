@@ -41,16 +41,18 @@ shadow_enabled = true
 environment = SubResource("Environment_vbhsi")
 
 [node name="plate" type="StaticBody3D" parent="." unique_id=83215151]
-transform = Transform3D(73.38721, 0, 0, 0, 1, 0, 0, 0, 73.38721, -13.824299, 3.4709415, -11.979355)
+transform = Transform3D(73.38721, 0, 0, 0, 1, 0, 0, 0, 73.38721, 17.694923, -11.172724, 6.055538)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="plate" unique_id=1375669833]
 mesh = SubResource("BoxMesh_l0di1")
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="plate" unique_id=1144082780]
 shape = SubResource("BoxShape3D_dmcnl")
+metadata/_edit_lock_ = true
 
 [node name="player" parent="." unique_id=821521582 instance=ExtResource("1_ltnff")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.441978, 12.600866, -36.736984)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.405445, 32.11844, 14.994995)
 
 [node name="WorldManager" type="Node3D" parent="." unique_id=542104430]
 script = ExtResource("3_sq5bk")

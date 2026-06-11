@@ -4,6 +4,7 @@ var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 @onready var camera = $Camera3D
 @onready var raycast = $Camera3D/RayCast3D
+@onready var wm : WorldManager
 
 @export var base_speed : int = 5
 @export var mouse_sensitivity : float = 0.002
@@ -11,6 +12,11 @@ var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 @export var run_multiplier : float = 2.0
 
 var speed : float
+
+func _ready() -> void:
+	if get_node("../WorldManager") != null:
+		wm = get_node("../WorldManager")
+		print("WM is %s" % [wm])
 
 func interact_with_voxel(is_placing: bool, new_block_id: int = 1) -> void:
 	if not raycast.is_colliding():
@@ -65,6 +71,15 @@ func _unhandled_input(event: InputEvent) -> void:
 		camera.rotate_x(-event.relative.y * mouse_sensitivity)
 		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-89), deg_to_rad(89))
 	if event.is_action_pressed("lmb"):
-		interact_with_voxel(false, 1)
+		print("Замечен клик левой кнопки мыши.")
+		if wm != null and raycast.get_collider() is Sector:
+			print("WorldManager присутствует и коллайдер есть сектор.")
+			var collision_point = raycast.get_collision_point()
+			var collision_normal = raycast.get_collision_normal()
+			var global_pos = Vector3i()
+			global_pos.x = collision_point.x - (collision_normal.x * 0.001)
+			global_pos.y = collision_point.y - (collision_normal.y * 0.001)
+			global_pos.z = collision_point.z - (collision_normal.z * 0.001)
+			wm.set_block_global(global_pos,1)
 	elif event.is_action_pressed("rmb"):
 		interact_with_voxel(true, 1)
