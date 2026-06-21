@@ -3,47 +3,48 @@ class_name Sector
 
 const SIZE = 10
 
+# Правильная карта вершин (все полигоны развернуты наружу (CCW) и привязаны к своим осям)
 const FACE_DATA: Dictionary = {
 	Vector3i.UP: {
 		"normal": Vector3.UP,
 		"vertices": [
-			Vector3(0, 1, 0), Vector3(1, 1, 0), Vector3(1, 1, 1),
-			Vector3(0, 1, 0), Vector3(1, 1, 1), Vector3(0, 1, 1)
+			Vector3(0, 1, 1), Vector3(1, 1, 0), Vector3(1, 1, 1),
+			Vector3(0, 1, 1), Vector3(0, 1, 0), Vector3(1, 1, 0)
 		]
 	},
 	Vector3i.DOWN: {
 		"normal": Vector3.DOWN,
 		"vertices": [
-			Vector3(0, 0, 1), Vector3(1, 0, 1), Vector3(1, 0, 0),
-			Vector3(0, 0, 1), Vector3(1, 0, 0), Vector3(0, 0, 0)
+			Vector3(0, 0, 0), Vector3(1, 0, 1), Vector3(1, 0, 0),
+			Vector3(0, 0, 0), Vector3(0, 0, 1), Vector3(1, 0, 1)
 		]
 	},
-	Vector3i.FORWARD: { # Передняя грань (Z + 1)
+	Vector3i.FORWARD: {
 		"normal": Vector3.FORWARD,
 		"vertices": [
-			Vector3(0, 1, 1), Vector3(1, 1, 1), Vector3(1, 0, 1),
-			Vector3(0, 1, 1), Vector3(1, 0, 1), Vector3(0, 0, 1)
+			Vector3(1, 0, 0), Vector3(0, 1, 0), Vector3(0, 0, 0),
+			Vector3(1, 0, 0), Vector3(1, 1, 0), Vector3(0, 1, 0)
 		]
 	},
-	Vector3i.BACK: { # Задняя грань (Z - 1)
+	Vector3i.BACK: {
 		"normal": Vector3.BACK,
 		"vertices": [
-			Vector3(1, 1, 0), Vector3(0, 1, 0), Vector3(0, 0, 0),
-			Vector3(1, 1, 0), Vector3(0, 0, 0), Vector3(1, 0, 0)
+			Vector3(0, 0, 1), Vector3(1, 1, 1), Vector3(1, 0, 1),
+			Vector3(0, 0, 1), Vector3(0, 1, 1), Vector3(1, 1, 1)
 		]
 	},
-	Vector3i.RIGHT: { # Правая грань (X + 1)
+	Vector3i.RIGHT: {
 		"normal": Vector3.RIGHT,
 		"vertices": [
-			Vector3(1, 1, 1), Vector3(1, 1, 0), Vector3(1, 0, 0),
-			Vector3(1, 1, 1), Vector3(1, 0, 0), Vector3(1, 0, 1)
+			Vector3(1, 0, 1), Vector3(1, 1, 0), Vector3(1, 0, 0),
+			Vector3(1, 0, 1), Vector3(1, 1, 1), Vector3(1, 1, 0)
 		]
 	},
-	Vector3i.LEFT: { # Левая грань (X - 1)
+	Vector3i.LEFT: {
 		"normal": Vector3.LEFT,
 		"vertices": [
-			Vector3(0, 1, 0), Vector3(0, 1, 1), Vector3(0, 0, 1),
-			Vector3(0, 1, 0), Vector3(0, 0, 1), Vector3(0, 0, 0)
+			Vector3(0, 0, 0), Vector3(0, 1, 1), Vector3(0, 0, 1),
+			Vector3(0, 0, 0), Vector3(0, 1, 0), Vector3(0, 1, 1)
 		]
 	}
 }
@@ -62,10 +63,10 @@ func _ready() -> void:
 	init_buffer()
 
 func init_buffer():
-	blocks.resize(SIZE*SIZE*SIZE)
+	blocks.resize(SIZE * SIZE * SIZE)
 	blocks.fill(0)
 
-func _get_index(x:int, y:int, z:int):
+func _get_index(x: int, y: int, z: int):
 	return x + (y * SIZE) + (z * SIZE * SIZE)
 
 func _is_inside(x: int, y: int, z: int) -> bool:
@@ -77,44 +78,54 @@ func _get_block_id(x: int, y: int, z: int) -> int:
 	return 0
 
 func test_generate() -> void:
-	# Три вложенных цикла проходят по каждой координате нашего куба 10х10х10
 	for x in SIZE:
-		for z in SIZE:
-			for y in SIZE:
-				if y < 4:
-					var idx : int = _get_index(x, y, z)
+		for y in SIZE:
+			for z in SIZE:
+				var idx : int = _get_index(x, y, z)
+				if y <= 4:
 					blocks[idx] = 1
+				elif y > 4:
+					blocks[idx] = 2
 
 func _create_face(st: SurfaceTool, pos: Vector3, direction: Vector3i) -> void:
-	# Вытаскиваем нужный подсловарь с нормалью и массивом вершин по ключу направления
 	var face_info = FACE_DATA[direction]
-	
-	# Устанавливаем нормаль освещения для этой грани
 	st.set_normal(face_info["normal"])
-	
-	# Проходим циклом по всем 6 вершинам из массива константы
 	for vertex_offset in face_info["vertices"]:
-		# Прибавляем локальное смещение вершины к мировой позиции блока и заносим в меш
 		st.add_vertex(pos + vertex_offset)
 
 func update():
 	var st = SurfaceTool.new()
 	st.begin(Mesh.PRIMITIVE_TRIANGLES)
-	var material = StandardMaterial3D.new()
-	material.albedo_color = Color(0.2, 0.6, 0.2)
-	st.set_material(material)
+	
+	var green_material = StandardMaterial3D.new()
+	var gray_material = StandardMaterial3D.new()
+	green_material.albedo_color = Color(0.2, 0.6, 0.2)
+	gray_material.albedo_color = Color(0.6, 0.6, 0.6, 1.0)
+	#st.set_material(material)
+	
 	for x in SIZE:
 		for y in SIZE:
 			for z in SIZE:
-				if _get_block_id(x,y,z) == 1:
-					var block_pos = Vector3(x,y,z)
+				var block_id = _get_block_id(x,y,z)
+				if block_id != 0:
+					if block_id == 1:
+						st.set_material(gray_material)
+					elif block_id == 2:
+						st.set_material(green_material)
+					var block_pos = Vector3(x, y, z)
+					print("Id is %s, then material is " % [block_id])
 					for dir_key in FACE_DATA.keys():
 						var neighbor_x = x + dir_key.x
 						var neighbor_y = y + dir_key.y
 						var neighbor_z = z + dir_key.z
+						
+						# Если сосед — воздух, рисуем грань
 						if _get_block_id(neighbor_x, neighbor_y, neighbor_z) == 0:
 							_create_face(st, block_pos, dir_key)
+							
 	var array_mesh = st.commit()
 	mesh_instance.mesh = array_mesh
+	
 	if array_mesh.get_surface_count() > 0:
 		collision_shape.shape = array_mesh.create_trimesh_shape()
+	print(str(name) + "'s updated.")

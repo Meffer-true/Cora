@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bpkungga8bewb" path="res://media/scenes/player.tscn" id="1_ltnff"]
 [ext_resource type="Script" uid="uid://ca3xohki8myiu" path="res://media/scripts/test_scene.gd" id="1_vbhsi"]
+[ext_resource type="Script" uid="uid://djebqw8kgxqh7" path="res://media/scripts/world_manager.gd" id="3_sq5bk"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_3elnk"]
 
@@ -29,6 +30,7 @@ material = SubResource("StandardMaterial3D_sq5bk")
 [sub_resource type="BoxShape3D" id="BoxShape3D_dmcnl"]
 
 [node name="test_scene" type="Node3D" unique_id=2109658335]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 44.143875)
 script = ExtResource("1_vbhsi")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=589497891]
@@ -39,13 +41,19 @@ shadow_enabled = true
 environment = SubResource("Environment_vbhsi")
 
 [node name="plate" type="StaticBody3D" parent="." unique_id=83215151]
-transform = Transform3D(73.38721, 0, 0, 0, 1, 0, 0, 0, 73.38721, 0, 0, 0)
+transform = Transform3D(23.368637, 0, 0, 0, 1, 0, 0, 0, 20.961048, 17.694923, 113.50368, -27.159592)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="plate" unique_id=1375669833]
 mesh = SubResource("BoxMesh_l0di1")
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="plate" unique_id=1144082780]
 shape = SubResource("BoxShape3D_dmcnl")
+metadata/_edit_lock_ = true
 
 [node name="player" parent="." unique_id=821521582 instance=ExtResource("1_ltnff")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.330998, 10, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.405445, 117.47336, -20.759254)
+
+[node name="WorldManager" type="Node3D" parent="." unique_id=542104430]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -44)
+script = ExtResource("3_sq5bk")

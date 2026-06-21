@@ -1,9 +1,7 @@
 extends Node3D
 
+@onready var WM : WorldManager = $WorldManager
+
 func _ready() -> void:
-	var sector = Sector.new()
-	sector.position = Vector3(0,3,0)
-	add_child(sector)
-	sector.test_generate()
-	sector.update()
+	WM.generate(-20,1,-20,20,5,20,1)
 	

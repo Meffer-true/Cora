@@ -52,10 +52,12 @@ const FACE_DATA: Dictionary = {
 var sector_pos : Vector3i
 var blocks : Array[int] = []
 
-var mesh_instance: MeshInstance3D
+var mesh_instance: MeshInstance3D 
 var collision_shape: CollisionShape3D
 
 func _ready() -> void:
+	var mat = StandardMaterial3D.new()
+	mat.albedo_color = Color(0.277, 0.333, 1.0, 0.196)
 	mesh_instance = MeshInstance3D.new()
 	add_child(mesh_instance)
 	collision_shape = CollisionShape3D.new()
@@ -77,45 +79,80 @@ func _get_block_id(x: int, y: int, z: int) -> int:
 		return blocks[_get_index(x, y, z)]
 	return 0
 
-func test_generate() -> void:
-	for x in SIZE:
-		for z in SIZE:
-			for y in SIZE:
-				var idx : int = _get_index(x, y, z)
-				blocks[idx] = 1
+func set_block(x: int, y: int, z: int, block_id: int) -> void:
+	print("S: Начинаем установку блока.")
+	if !_is_inside(x, y, z): # Проверка границ сектора 
+		print("Блок вне границ сектора!")
+	else:
+		print("Блок в границах сектора.")
+		var idx = _get_index(x, y, z) # Получение индекса 1D массива 
+		if blocks[idx] != block_id:
+			blocks[idx] = block_id
+			update() # Запуск пересборки геометрии
 
-func _create_face(st: SurfaceTool, pos: Vector3, direction: Vector3i) -> void:
-	var face_info = FACE_DATA[direction]
-	st.set_normal(face_info["normal"])
-	for vertex_offset in face_info["vertices"]:
-		st.add_vertex(pos + vertex_offset)
-
-func update():
-	var st = SurfaceTool.new()
-	st.begin(Mesh.PRIMITIVE_TRIANGLES)
-	
-	var material = StandardMaterial3D.new()
-	material.albedo_color = Color(0.2, 0.6, 0.2)
-	st.set_material(material)
-	
+func test_generate(type:int) -> void:
 	for x in SIZE:
 		for y in SIZE:
 			for z in SIZE:
-				if _get_block_id(x, y, z) == 1:
+				var idx : int = _get_index(x, y, z)
+				if type == 0:
+					blocks[idx] = 0
+				elif type == 1:
+					if y <= 4:
+						blocks[idx] = 1
+					elif y > 4:
+						blocks[idx] = 2
+
+func _create_face(st: SurfaceTool, pos: Vector3, direction: Vector3i, color: Color) -> void:
+	var face_info = FACE_DATA[direction]
+	st.set_normal(face_info["normal"])
+	
+	# Устанавливаем цвет перед добавлением вершин. 
+	# SurfaceTool применит этот цвет ко всем вершинам, добавленным ниже.
+	st.set_color(color) 
+	
+	for vertex_offset in face_info["vertices"]:
+		st.add_vertex(pos + vertex_offset)
+
+func generate_mesh_data() -> ArrayMesh:
+	var st = SurfaceTool.new()
+	st.begin(Mesh.PRIMITIVE_TRIANGLES)
+	
+	var chunk_material = StandardMaterial3D.new()
+	chunk_material.vertex_color_use_as_albedo = true
+	st.set_material(chunk_material)
+
+	for x in SIZE:
+		for y in SIZE:
+			for z in SIZE:
+				var block_id = _get_block_id(x, y, z)
+				if block_id != 0:
+					var block_color : Color
+					if block_id == 1:
+						block_color = Color(1.0, 0.0, 0.0, 1.0)
+					elif block_id == 2:
+						block_color = Color(1.0, 1.0, 1.0, 1.0)
 					var block_pos = Vector3(x, y, z)
-					
-					# Перебираем все стороны для каждого существующего блока
 					for dir_key in FACE_DATA.keys():
 						var neighbor_x = x + dir_key.x
 						var neighbor_y = y + dir_key.y
 						var neighbor_z = z + dir_key.z
-						
-						# Если сосед — воздух, рисуем грань
 						if _get_block_id(neighbor_x, neighbor_y, neighbor_z) == 0:
-							_create_face(st, block_pos, dir_key)
-							
-	var array_mesh = st.commit()
-	mesh_instance.mesh = array_mesh
+							_create_face(st, block_pos, dir_key, block_color)
 	
-	if array_mesh.get_surface_count() > 0:
-		collision_shape.shape = array_mesh.create_trimesh_shape()
+	# commit() создаёт ArrayMesh (это Resource, а не Node — можно в потоке)
+	return st.commit()
+
+func apply_generated_mesh(mesh: ArrayMesh) -> void:
+	if mesh_instance != null:
+		mesh_instance.mesh = mesh
+		if mesh.get_surface_count() > 0:
+			collision_shape.shape = mesh.create_trimesh_shape()
+			print(str(name) + "'s updated.")
+	else:
+		push_error("Mesh_i is empty!")
+
+func update():
+	var mesh = generate_mesh_data()
+	apply_generated_mesh(mesh)
+	
