@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://b3udebhdu4xsh"]
+
+[ext_resource type="Script" uid="uid://e7wl5gyyndae" path="res://media/scripts/text_sphere.gd" id="1_ee7r4"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_4kxuq"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_4kxuq"]
+
+[node name="text_sphere" type="StaticBody3D" unique_id=580814602]
+script = ExtResource("1_ee7r4")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=913072040]
+mesh = SubResource("SphereMesh_4kxuq")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=723275286]
+shape = SubResource("SphereShape3D_4kxuq")
+
+[node name="Label3D" type="Label3D" parent="." unique_id=1269572115]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.69413745, 0)
+billboard = 2
+text = "0-59291"

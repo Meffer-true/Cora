@@ -3,30 +3,47 @@ class_name WorldManager
 
 @export var sectors : Dictionary[Vector3i,Sector] = {}
 
-func set_block_global(global_pos:Vector3i,block_id:int):
-	print("WM: Начинаем установку блока.")
-	var sector_pos = global_pos / 10
-	var local_pos = Vector3i()
-	local_pos.x = posmod(global_pos.x,10)
-	local_pos.y = posmod(global_pos.y,10)
-	local_pos.z = posmod(global_pos.z,10)
-	#print("Global position (%s,%s,%s), sector position (%s,%s,%s), local position (%s,%s,%s)" % [global_pos.x,global_pos.y,global_pos.z,sector_pos.x,sector_pos.y,sector_pos.z,local_pos.x,local_pos.y,local_pos.z])
-	if sector_pos in sectors:
-		print("WM: Сектор обнаружен в списке.")
-		var current_sector : Sector = sectors[sector_pos]
-		current_sector.set_block(local_pos.x,local_pos.y,local_pos.z,0)
-	else:
-		print("WM: Сектор (%s) не обнаружен в списке. Список секторов:" % [sector_pos])
-		print(sectors)
+const SECTOR_SIZE = 10
 
-func generate(x1:int,y1:int,z1:int,x2:int,y2:int,z2:int):
-	for x in abs(x2-x1):
-		for y in abs(y2-y1):
-			for z in abs(z2-z1):
+func set_block_global(collider:Sector, collision_point:Vector3, collision_normal:Vector3, block_id:int):
+	# 1. Сдвигаем точку. 
+	# Если ломаем (block_id == 0) - сдвигаем ВНУТРЬ блока (против нормали).
+	# Если ставим (block_id != 0) - сдвигаем НАРУЖУ (по нормали).
+	const EPSILON = 0.001
+	var target_point = collision_point
+	if block_id == 0:
+		target_point -= collision_normal * EPSILON
+	else:
+		target_point += collision_normal * EPSILON
+
+	# 2. Переводим сдвинутую точку в локальные координаты сектора
+	var local_pos = collider.to_local(target_point)
+
+	# 3. КРИТИЧЕСКИ ВАЖНО: Округляем ВНИЗ (floor), чтобы получить целочисленный индекс вокселя
+	var voxel_pos = Vector3i(
+		floor(local_pos.x), 
+		floor(local_pos.y), 
+		floor(local_pos.z)
+	)
+
+	# 4. Проверяем, попали ли мы внутрь текущего сектора
+	if collider._is_inside(voxel_pos.x, voxel_pos.y, voxel_pos.z):
+		collider.set_block(voxel_pos.x, voxel_pos.y, voxel_pos.z, block_id)
+	else:
+		# Если мы ставим блок и он выходит за границы текущего сектора 
+		# (значит, мы ставим его в соседний сектор). 
+		# Пока просто логируем, в будущем здесь будет создание нового сектора.
+		print("WM: Взаимодействие за границами сектора %s. Локальные координаты: %s" % [collider.sector_pos, voxel_pos])
+
+func generate(x1:int,y1:int,z1:int,x2:int,y2:int,z2:int,type:int):
+	for x in range(x1, x2):  # Правильный диапазон
+		for y in range(y1, y2):
+			for z in range(z1, z2):
 				var sector = Sector.new()
-				sector.position = Vector3((x-1)*10,(y-1)*10,(z-1)*10)
+				sector.position = Vector3(x*10, y*10, z*10)
+				sector.sector_pos = Vector3i(x,y,z)
 				add_child(sector)
-				sectors.set(Vector3i(x,y,z),sector)
+				sectors.set(Vector3i(x,y,z), sector)
 				sector.init_buffer()
-				sector.test_generate(1)
+				sector.test_generate(type)
 				sector.update()

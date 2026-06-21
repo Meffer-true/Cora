@@ -70,16 +70,23 @@ func _unhandled_input(event: InputEvent) -> void:
 		rotate_y(-event.relative.x * mouse_sensitivity)
 		camera.rotate_x(-event.relative.y * mouse_sensitivity)
 		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-89), deg_to_rad(89))
+		
 	if event.is_action_pressed("lmb"):
-		print("Замечен клик левой кнопки мыши.")
-		if wm != null and raycast.get_collider() is Sector:
-			print("WorldManager присутствует и коллайдер есть сектор.")
-			var collision_point = raycast.get_collision_point()
-			var collision_normal = raycast.get_collision_normal()
-			var global_pos = Vector3i()
-			global_pos.x = collision_point.x - (collision_normal.x * 0.001)
-			global_pos.y = collision_point.y - (collision_normal.y * 0.001)
-			global_pos.z = collision_point.z - (collision_normal.z * 0.001)
-			wm.set_block_global(global_pos,1)
+		if wm != null and raycast.is_colliding() and raycast.get_collider() is Sector:
+			# Передаем 0 как ID блока -> функция поймет, что это разрушение
+			wm.set_block_global(
+				raycast.get_collider(), 
+				raycast.get_collision_point(), 
+				raycast.get_collision_normal(), 
+				0
+			)
+			
 	elif event.is_action_pressed("rmb"):
-		interact_with_voxel(true, 1)
+		if wm != null and raycast.is_colliding() and raycast.get_collider() is Sector:
+			# Передаем 1 (или ID выбранного блока) -> функция поймет, что это установка
+			wm.set_block_global(
+				raycast.get_collider(), 
+				raycast.get_collision_point(), 
+				raycast.get_collision_normal(), 
+				1 
+			)
