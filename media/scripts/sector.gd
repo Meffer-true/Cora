@@ -56,6 +56,8 @@ var mesh_instance: MeshInstance3D
 var collision_shape: CollisionShape3D
 
 func _ready() -> void:
+	var mat = StandardMaterial3D.new()
+	mat.albedo_color = Color(0.277, 0.333, 1.0, 0.196)
 	mesh_instance = MeshInstance3D.new()
 	add_child(mesh_instance)
 	collision_shape = CollisionShape3D.new()
