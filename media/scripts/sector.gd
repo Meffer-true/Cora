@@ -114,16 +114,14 @@ func _create_face(st: SurfaceTool, pos: Vector3, direction: Vector3i, color: Col
 	for vertex_offset in face_info["vertices"]:
 		st.add_vertex(pos + vertex_offset)
 
-func update():
+func generate_mesh_data() -> ArrayMesh:
 	var st = SurfaceTool.new()
 	st.begin(Mesh.PRIMITIVE_TRIANGLES)
 	
-	# Создаем ОДИН материал для всего чанка
 	var chunk_material = StandardMaterial3D.new()
-	# КРИТИЧЕСКИ ВАЖНО: говорим материалу использовать цвет из вершин, а не игнорировать его
 	chunk_material.vertex_color_use_as_albedo = true
 	st.set_material(chunk_material)
-	
+
 	for x in SIZE:
 		for y in SIZE:
 			for z in SIZE:
@@ -141,12 +139,20 @@ func update():
 						var neighbor_z = z + dir_key.z
 						if _get_block_id(neighbor_x, neighbor_y, neighbor_z) == 0:
 							_create_face(st, block_pos, dir_key, block_color)
-	var array_mesh = st.commit()
+	
+	# commit() создаёт ArrayMesh (это Resource, а не Node — можно в потоке)
+	return st.commit()
+
+func apply_generated_mesh(mesh: ArrayMesh) -> void:
 	if mesh_instance != null:
-		mesh_instance.mesh = array_mesh
-		if array_mesh.get_surface_count() > 0:
-			collision_shape.shape = array_mesh.create_trimesh_shape()
+		mesh_instance.mesh = mesh
+		if mesh.get_surface_count() > 0:
+			collision_shape.shape = mesh.create_trimesh_shape()
 			print(str(name) + "'s updated.")
 	else:
 		push_error("Mesh_i is empty!")
+
+func update():
+	var mesh = generate_mesh_data()
+	apply_generated_mesh(mesh)
 	

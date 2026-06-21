@@ -4,6 +4,25 @@ class_name WorldManager
 @export var sectors : Dictionary[Vector3i, Sector] = {}
 const SECTOR_SIZE = 10
 
+# === НОВОЕ: Очередь для применения мешей ===
+# Фоновые потоки складывают сюда готовые меши,
+# а главный поток по чуть-чуть их применяет.
+var pending_meshes : Array = []
+const MESHES_PER_FRAME = 20  # Сколько секторов применять за один кадр
+
+
+# === НОВОЕ: Выполняется каждый кадр в главном потоке ===
+func _process(delta: float) -> void:
+	# Берём из очереди не все меши сразу, а по MESHES_PER_FRAME штук
+	var count = mini(MESHES_PER_FRAME, pending_meshes.size())
+	for i in range(count):
+		var data = pending_meshes.pop_front()
+		var sector_pos : Vector3i = data[0]
+		var mesh : ArrayMesh = data[1]
+		if sector_pos in sectors:
+			sectors[sector_pos].apply_generated_mesh(mesh)
+
+
 func set_block_global(collider: Sector, collision_point: Vector3, collision_normal: Vector3, block_id: int) -> void:
 	# 1. Сдвигаем точку по нормали
 	const EPSILON = 0.001
@@ -36,10 +55,8 @@ func set_block_global(collider: Sector, collision_point: Vector3, collision_norm
 
 	# 6. Ищем целевой сектор
 	if target_sector_coord in sectors:
-		# Сектор уже существует, просто ставим/ломаем блок
 		sectors[target_sector_coord].set_block(target_local_pos.x, target_local_pos.y, target_local_pos.z, block_id)
 	else:
-		# Сектора нет. Если мы пытаемся поставить блок (block_id != 0) -> создаем его!
 		if block_id != 0:
 			print("WM: Создание нового сектора %s" % target_sector_coord)
 			var new_sector = Sector.new()
@@ -55,13 +72,14 @@ func set_block_global(collider: Sector, collision_point: Vector3, collision_norm
 			sectors[target_sector_coord] = new_sector
 			
 			new_sector.init_buffer()
-			# set_block сам внутри вызовет update() для пересборки меши
 			new_sector.set_block(target_local_pos.x, target_local_pos.y, target_local_pos.z, block_id)
 		else:
-			# Пытаемся сломать блок в несуществующем секторе (там и так воздух, ничего не делаем)
 			pass
 
+
+# === ОБНОВЛЁННАЯ ФУНКЦИЯ: Теперь генерирует асинхронно ===
 func generate(x1: int, y1: int, z1: int, x2: int, y2: int, z2: int, type: int) -> void:
+	# ШАГ 1: Создаём все секторы синхронно (это быстро — просто узлы и массивы)
 	for x in range(x1, x2):
 		for y in range(y1, y2):
 			for z in range(z1, z2):
@@ -70,7 +88,32 @@ func generate(x1: int, y1: int, z1: int, x2: int, y2: int, z2: int, type: int) -
 				sector.position = Vector3(x * SECTOR_SIZE, y * SECTOR_SIZE, z * SECTOR_SIZE)
 				sector.sector_pos = Vector3i(x, y, z)
 				add_child(sector)
-				sectors.set(Vector3i(x, y, z), sector)
+				sectors[Vector3i(x, y, z)] = sector
 				sector.init_buffer()
 				sector.test_generate(type)
-				sector.update()
+	
+	# ШАГ 2: Запускаем генерацию мешей в фоновых потоках
+	for x in range(x1, x2):
+		for y in range(y1, y2):
+			for z in range(z1, z2):
+				# add_task отправляет функцию в пул потоков Godot
+				# .bind() передаёт аргументы в эту функцию
+				WorkerThreadPool.add_task(_generate_sector_mesh.bind(Vector3i(x, y, z)))
+
+
+# === НОВАЯ ФУНКЦИЯ: Выполняется в ФОНОВОМ ПОТОКЕ ===
+func _generate_sector_mesh(sector_pos: Vector3i) -> void:
+	# ⚠️ ВНИМАНИЕ: Эта функция работает в другом потоке!
+	# Здесь НЕЛЬЗЯ обращаться к узлам сцены (add_child, position и т.д.)
+	
+	var sector = sectors[sector_pos]
+	var mesh = sector.generate_mesh_data()  # Считаем меш (это безопасно в потоке)
+	
+	# call_deferred откладывает вызов до главного потока
+	call_deferred("_on_sector_mesh_generated", sector_pos, mesh)
+
+
+# === НОВАЯ ФУНКЦИЯ: Колбэк, выполняется в ГЛАВНОМ ПОТОКЕ ===
+func _on_sector_mesh_generated(sector_pos: Vector3i, mesh: ArrayMesh) -> void:
+	# Просто кладём готовый меш в очередь
+	pending_meshes.append([sector_pos, mesh])
