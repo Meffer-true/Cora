@@ -2,7 +2,14 @@
 
 [ext_resource type="PackedScene" uid="uid://bpkungga8bewb" path="res://media/scenes/player.tscn" id="1_ltnff"]
 [ext_resource type="Script" uid="uid://ca3xohki8myiu" path="res://media/scripts/test_scene.gd" id="1_vbhsi"]
+[ext_resource type="Script" uid="uid://bvmcux1nfxwet" path="res://media/scripts/block_data.gd" id="2_l0di1"]
 [ext_resource type="Script" uid="uid://djebqw8kgxqh7" path="res://media/scripts/world_manager.gd" id="3_sq5bk"]
+
+[sub_resource type="Resource" id="Resource_sq5bk"]
+script = ExtResource("2_l0di1")
+name = "Stone"
+id = "stone"
+metadata/_custom_type_script = "uid://bvmcux1nfxwet"
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_3elnk"]
 
@@ -32,6 +39,7 @@ material = SubResource("StandardMaterial3D_sq5bk")
 [node name="test_scene" type="Node3D" unique_id=2109658335]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 44.143875)
 script = ExtResource("1_vbhsi")
+block = SubResource("Resource_sq5bk")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=589497891]
 transform = Transform3D(1, 0, 0, 0, 0.95222545, 0.30539617, 0, -0.30539617, 0.95222545, 0, 33.601982, -53.65898)
