@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="BlockData" format=3 uid="uid://daf1361cvj77"]
+
+[ext_resource type="Script" uid="uid://bvmcux1nfxwet" path="res://media/scripts/block_data.gd" id="1_c2ch4"]
+
+[resource]
+script = ExtResource("1_c2ch4")
+name = "Stone"
+id = "stone"
+color = Color(0.7260352, 0.72603524, 0.7260352, 1)
+metadata/_custom_type_script = "uid://bvmcux1nfxwet"

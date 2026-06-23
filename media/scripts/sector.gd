@@ -56,8 +56,6 @@ var mesh_instance: MeshInstance3D
 var collision_shape: CollisionShape3D
 
 func _ready() -> void:
-	var mat = StandardMaterial3D.new()
-	mat.albedo_color = Color(0.277, 0.333, 1.0, 0.196)
 	mesh_instance = MeshInstance3D.new()
 	add_child(mesh_instance)
 	collision_shape = CollisionShape3D.new()
@@ -102,6 +100,8 @@ func test_generate(type:int) -> void:
 						blocks[idx] = 1
 					elif y > 4:
 						blocks[idx] = 2
+				elif type == 2:
+					blocks[idx] = 3
 
 func _create_face(st: SurfaceTool, pos: Vector3, direction: Vector3i, color: Color) -> void:
 	var face_info = FACE_DATA[direction]
@@ -128,10 +128,7 @@ func generate_mesh_data() -> ArrayMesh:
 				var block_id = _get_block_id(x, y, z)
 				if block_id != 0:
 					var block_color : Color
-					if block_id == 1:
-						block_color = Color(1.0, 0.0, 0.0, 1.0)
-					elif block_id == 2:
-						block_color = Color(1.0, 1.0, 1.0, 1.0)
+					block_color = global.Breg.Blocks[block_id-1].color
 					var block_pos = Vector3(x, y, z)
 					for dir_key in FACE_DATA.keys():
 						var neighbor_x = x + dir_key.x

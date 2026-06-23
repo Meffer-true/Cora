@@ -14,6 +14,7 @@ var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var speed : float
 
 func _ready() -> void:
+	print("playr")
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	if get_node("../WorldManager") != null:
 		wm = get_node("../WorldManager")
