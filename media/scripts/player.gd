@@ -14,9 +14,19 @@ var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var speed : float
 
 func _ready() -> void:
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	if get_node("../WorldManager") != null:
 		wm = get_node("../WorldManager")
 		print("WM is %s" % [wm])
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("esc"):
+		get_tree().quit()
+	if event.is_action_pressed("alt"):
+		if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		else:
+			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func interact_with_voxel(is_placing: bool, new_block_id: int = 1) -> void:
 	if not raycast.is_colliding():
