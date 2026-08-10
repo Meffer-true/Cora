@@ -169,6 +169,111 @@ theme_override_font_sizes/font_size = 25
 text = "< BACK"
 metadata/_edit_use_anchors_ = true
 
+[node name="header" type="ColorRect" parent="settings_panel" unique_id=1219770237]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 0.10958904
+color = Color(0, 0, 0, 0.3019608)
+metadata/_edit_use_anchors_ = true
+
+[node name="general_button" type="Button" parent="settings_panel/header" unique_id=1182523859]
+layout_mode = 0
+anchor_left = 0.0069444445
+anchor_top = 0.125
+anchor_right = 0.15972222
+anchor_bottom = 0.875
+theme = ExtResource("3_rdn86")
+text = "general"
+metadata/_edit_use_anchors_ = true
+
+[node name="video_button" type="Button" parent="settings_panel/header" unique_id=916276981]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.1736111
+anchor_top = 0.125
+anchor_right = 0.3263889
+anchor_bottom = 0.875
+theme = ExtResource("3_rdn86")
+text = "video"
+metadata/_edit_use_anchors_ = true
+
+[node name="audio_button" type="Button" parent="settings_panel/header" unique_id=803541585]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.3402778
+anchor_top = 0.125
+anchor_right = 0.49305555
+anchor_bottom = 0.875
+theme = ExtResource("3_rdn86")
+text = "audio"
+metadata/_edit_use_anchors_ = true
+
+[node name="input_button" type="Button" parent="settings_panel/header" unique_id=139216677]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5069444
+anchor_top = 0.125
+anchor_right = 0.6597222
+anchor_bottom = 0.875
+theme = ExtResource("3_rdn86")
+text = "input
+"
+metadata/_edit_use_anchors_ = true
+
+[node name="other_button" type="Button" parent="settings_panel/header" unique_id=1486509004]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.6736111
+anchor_top = 0.125
+anchor_right = 0.8263889
+anchor_bottom = 0.875
+theme = ExtResource("3_rdn86")
+text = "other
+
+"
+metadata/_edit_use_anchors_ = true
+
+[node name="pages" type="Control" parent="settings_panel" unique_id=1156916562]
+anchors_preset = 0
+anchor_top = 0.10958904
+anchor_right = 1.0
+anchor_bottom = 1.0
+metadata/_edit_use_anchors_ = true
+
+[node name="general_page" type="Control" parent="settings_panel/pages" unique_id=1369005819]
+layout_mode = 1
+anchor_right = 1.0
+anchor_bottom = 1.0
+metadata/_edit_use_anchors_ = true
+
+[node name="video_page" type="Control" parent="settings_panel/pages" unique_id=147355279]
+visible = false
+layout_mode = 1
+anchor_right = 1.0
+anchor_bottom = 1.0
+metadata/_edit_use_anchors_ = true
+
+[node name="audio_page" type="Control" parent="settings_panel/pages" unique_id=1798990427]
+visible = false
+layout_mode = 1
+anchor_right = 1.0
+anchor_bottom = 1.0
+metadata/_edit_use_anchors_ = true
+
+[node name="input_page" type="Control" parent="settings_panel/pages" unique_id=1945826218]
+visible = false
+layout_mode = 1
+anchor_right = 1.0
+anchor_bottom = 1.0
+metadata/_edit_use_anchors_ = true
+
+[node name="other_page" type="Control" parent="settings_panel/pages" unique_id=778923717]
+visible = false
+layout_mode = 1
+anchor_right = 1.0
+anchor_bottom = 1.0
+metadata/_edit_use_anchors_ = true
+
 [node name="packs_panel" type="ColorRect" parent="." unique_id=1217269858]
 visible = false
 layout_mode = 1
@@ -236,4 +341,9 @@ fov = 37.849285
 [connection signal="pressed" from="side_panel/buttons/quit_button" to="." method="_on_quit_button_pressed"]
 [connection signal="pressed" from="play_panel/back_button" to="." method="_on_back_button_pressed"]
 [connection signal="pressed" from="settings_panel/back_button" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="settings_panel/header/general_button" to="." method="_on_general_button_pressed"]
+[connection signal="pressed" from="settings_panel/header/video_button" to="." method="_on_video_button_pressed"]
+[connection signal="pressed" from="settings_panel/header/audio_button" to="." method="_on_audio_button_pressed"]
+[connection signal="pressed" from="settings_panel/header/input_button" to="." method="_on_input_button_pressed"]
+[connection signal="pressed" from="settings_panel/header/other_button" to="." method="_on_other_button_pressed"]
 [connection signal="pressed" from="packs_panel/back_button" to="." method="_on_back_button_pressed"]
