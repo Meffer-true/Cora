@@ -12,11 +12,12 @@ func read_folder(path:String):
 		files = dir.get_files()
 	else:
 		print("Директории не существует")
-	for i in files:
-		print(i)
-		if ResourceLoader.exists("%s/%s" % [path,i]):
-			print("%s/%s существует" % [path,i])
-			Blocks.append(ResourceLoader.load("%s/%s" % [path,i]))
-		else:
-			print("%s/%s не существует" % [path,i])
-	print("Загрузка блоков завершена, блоки - %s" % [Blocks])
+	if files:
+		for i in files:
+			print(i)
+			if ResourceLoader.exists("%s/%s" % [path,i]):
+				print("%s/%s существует" % [path,i])
+				Blocks.append(ResourceLoader.load("%s/%s" % [path,i]))
+			else:
+				print("%s/%s не существует" % [path,i])
+		print("Загрузка блоков завершена, блоки - %s" % [Blocks])

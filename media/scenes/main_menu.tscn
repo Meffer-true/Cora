@@ -2,9 +2,49 @@
 
 [ext_resource type="Script" uid="uid://dvq84ywaj5yh" path="res://media/scripts/main_menu.gd" id="1_gesxk"]
 [ext_resource type="FontFile" uid="uid://vtgecqyrsmk" path="res://media/other/Stengazeta/Stengazeta-Regular_5.ttf" id="2_e0gve"]
+[ext_resource type="Texture2D" uid="uid://cmvukpv3yy702" path="res://media/images/512x512/Gray/Prototype_Grid_Gray_06-512x512.png" id="3_7jeeb"]
+[ext_resource type="Theme" uid="uid://6m0lkmx12i3u" path="res://media/other/new_theme.tres" id="3_rdn86"]
 
-[sub_resource type="Theme" id="Theme_4kxuq"]
-default_font = ExtResource("2_e0gve")
+[sub_resource type="ViewportTexture" id="ViewportTexture_7jeeb"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_slkkt"]
+albedo_texture = ExtResource("3_7jeeb")
+uv1_triplanar = true
+uv1_world_triplanar = true
+texture_filter = 5
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_4kxuq"]
+material = SubResource("StandardMaterial3D_slkkt")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_etkb1"]
+seed = 432
+frequency = 0.0014
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_7jeeb"]
+noise = SubResource("FastNoiseLite_etkb1")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rdn86"]
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+emission_energy_multiplier = 7.61
+emission_texture = SubResource("NoiseTexture2D_7jeeb")
+
+[sub_resource type="BoxMesh" id="BoxMesh_mti6b"]
+material = SubResource("StandardMaterial3D_rdn86")
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_e0gve"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_7jeeb"]
+sky_material = SubResource("ProceduralSkyMaterial_e0gve")
+
+[sub_resource type="Environment" id="Environment_rdn86"]
+background_mode = 2
+sky = SubResource("Sky_7jeeb")
+tonemap_mode = 2
+glow_enabled = true
 
 [node name="main_menu" type="Control" unique_id=924024912]
 layout_mode = 3
@@ -14,6 +54,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_gesxk")
+metadata/_edit_lock_ = true
 
 [node name="side_panel" type="ColorRect" parent="." unique_id=2053633050]
 layout_mode = 1
@@ -50,33 +91,149 @@ offset_right = -3.0517578e-05
 offset_bottom = 0.07998657
 
 [node name="play_button" type="Button" parent="side_panel/buttons" unique_id=1459726304]
-layout_mode = 0
-offset_right = 256.0
-offset_bottom = 64.0
-theme = SubResource("Theme_4kxuq")
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.2
+theme = ExtResource("3_rdn86")
 text = "PLAY"
 
 [node name="settings_button" type="Button" parent="side_panel/buttons" unique_id=1022608006]
-layout_mode = 0
-offset_top = 88.0
-offset_right = 256.0
-offset_bottom = 152.0
-theme = SubResource("Theme_4kxuq")
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.275
+anchor_right = 1.0
+anchor_bottom = 0.47500002
+theme = ExtResource("3_rdn86")
 text = "SETTINGS
 "
 
 [node name="packs_button" type="Button" parent="side_panel/buttons" unique_id=354026317]
-layout_mode = 0
-offset_top = 176.0
-offset_right = 256.0
-offset_bottom = 240.0
-theme = SubResource("Theme_4kxuq")
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.55
+anchor_right = 1.0
+anchor_bottom = 0.75000006
+offset_bottom = -1.5258789e-05
+theme = ExtResource("3_rdn86")
 text = "PACKS"
 
 [node name="quit_button" type="Button" parent="side_panel/buttons" unique_id=1661915725]
-layout_mode = 0
-offset_top = 256.0
-offset_right = 256.0
-offset_bottom = 320.0
-theme = SubResource("Theme_4kxuq")
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.8
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_rdn86")
 text = "QUIT"
+
+[node name="play_panel" type="ColorRect" parent="." unique_id=249481649]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.7607843)
+
+[node name="back_button" type="Button" parent="play_panel" unique_id=530601050]
+layout_mode = 0
+anchor_top = -0.05821918
+anchor_right = 0.1388889
+theme = ExtResource("3_rdn86")
+theme_override_font_sizes/font_size = 25
+text = "< BACK"
+metadata/_edit_use_anchors_ = true
+
+[node name="settings_panel" type="ColorRect" parent="." unique_id=1240850148]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.7607843)
+
+[node name="back_button" type="Button" parent="settings_panel" unique_id=2094357941]
+layout_mode = 0
+anchor_top = -0.05821918
+anchor_right = 0.1388889
+theme = ExtResource("3_rdn86")
+theme_override_font_sizes/font_size = 25
+text = "< BACK"
+metadata/_edit_use_anchors_ = true
+
+[node name="packs_panel" type="ColorRect" parent="." unique_id=1217269858]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.7607843)
+
+[node name="back_button" type="Button" parent="packs_panel" unique_id=1853825491]
+layout_mode = 0
+anchor_top = -0.05821918
+anchor_right = 0.1388889
+theme = ExtResource("3_rdn86")
+theme_override_font_sizes/font_size = 25
+text = "< BACK"
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1517618095]
+z_index = -1
+texture_filter = 6
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("ViewportTexture_7jeeb")
+expand_mode = 1
+stretch_mode = 6
+metadata/_edit_lock_ = true
+
+[node name="cool_scene" type="Node3D" parent="." unique_id=2112987988]
+
+[node name="plane" type="MeshInstance3D" parent="cool_scene" unique_id=54151323]
+transform = Transform3D(198.95332, 0, 0, 0, 1, 0, 0, 0, 187.95943, 0, 0, 0)
+mesh = SubResource("PlaneMesh_4kxuq")
+
+[node name="cube" type="MeshInstance3D" parent="cool_scene" unique_id=787665194]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.50352573, 0)
+mesh = SubResource("BoxMesh_mti6b")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="cool_scene" unique_id=1795499088]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="cool_scene" unique_id=1275420211]
+environment = SubResource("Environment_rdn86")
+
+[node name="SubViewport" type="SubViewport" parent="." unique_id=365548029]
+size = Vector2i(1920, 1080)
+
+[node name="neck" type="Node3D" parent="SubViewport" unique_id=1143086820]
+
+[node name="Camera3D" type="Camera3D" parent="SubViewport/neck" unique_id=4946313]
+transform = Transform3D(1, 0, 0, 0, 0.92353964, 0.38350305, 0, -0.38350305, 0.92353964, -1.5618792, 3.1446776, 6.29731)
+fov = 37.849285
+
+[connection signal="pressed" from="side_panel/buttons/play_button" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="side_panel/buttons/settings_button" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="side_panel/buttons/packs_button" to="." method="_on_packs_button_pressed"]
+[connection signal="pressed" from="side_panel/buttons/quit_button" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="play_panel/back_button" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="settings_panel/back_button" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="packs_panel/back_button" to="." method="_on_back_button_pressed"]

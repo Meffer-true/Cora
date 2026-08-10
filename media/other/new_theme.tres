@@ -1,0 +1,7 @@
+[gd_resource type="Theme" format=3 uid="uid://6m0lkmx12i3u"]
+
+[ext_resource type="FontFile" uid="uid://vtgecqyrsmk" path="res://media/other/Stengazeta/Stengazeta-Regular_5.ttf" id="1_rvhyf"]
+
+[resource]
+default_font = ExtResource("1_rvhyf")
+Button/font_sizes/font_size = 34
