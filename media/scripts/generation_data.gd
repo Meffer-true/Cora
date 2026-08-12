@@ -1,6 +1,8 @@
 extends Resource
 class_name GenerationData
 
+@export var name : StringName
+
 @export_group("Noise settings")
 @export_range(0,99999,1.0) var seed : int
 @export var base_height : int

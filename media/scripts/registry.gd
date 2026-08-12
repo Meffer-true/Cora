@@ -4,7 +4,7 @@ class_name Registry
 var Packs : Array[Dictionary]
 var Blocks : Dictionary
 var Entities : Array[Entity_Data]
-var Generators : Array[GenerationData]
+var Generators : Dictionary
 
 var path : String
 
@@ -22,6 +22,8 @@ func filter(resources : Array) -> void:
 			name = manifest.name
 			for i in resources.filter(func(res):return res is BlockData):
 				Blocks[str("%s:%s" % [name,i.id])] = i
+			for i in resources.filter(func(res):return res is GenerationData):
+				Generators[str("%s:%s" % [name,i.id])] = i
 		else:
 			print("Отсутствует манифест.")
 	else:
