@@ -8,6 +8,10 @@ func _ready() -> void:
 	Reg.path = "res://export"
 	Reg.scan_folder()
 
+func im_here(menu):
+	for i in Reg.Packs:
+		menu.add_pack_card(i.pack_name)
+
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("f11"):
 		match DisplayServer.window_get_mode():

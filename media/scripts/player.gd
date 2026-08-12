@@ -14,11 +14,10 @@ var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var speed : float
 
 func _ready() -> void:
-	print("playr")
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	if get_node("../WorldManager") != null:
-		wm = get_node("../WorldManager")
-		print("WM is %s" % [wm])
+	#if get_node("../WorldManager") != null:
+	#	wm = get_node("../WorldManager")
+	#	print("WM is %s" % [wm])
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("esc"):

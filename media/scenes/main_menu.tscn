@@ -4,6 +4,7 @@
 [ext_resource type="FontFile" uid="uid://vtgecqyrsmk" path="res://media/other/Stengazeta/Stengazeta-Regular_5.ttf" id="2_e0gve"]
 [ext_resource type="Texture2D" uid="uid://cmvukpv3yy702" path="res://media/images/512x512/Gray/Prototype_Grid_Gray_06-512x512.png" id="3_7jeeb"]
 [ext_resource type="Theme" uid="uid://6m0lkmx12i3u" path="res://media/other/new_theme.tres" id="3_rdn86"]
+[ext_resource type="PackedScene" uid="uid://b68b0dhm6lalc" path="res://media/scenes/pack_card.tscn" id="4_etkb1"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_7jeeb"]
 viewport_path = NodePath("SubViewport")
@@ -242,36 +243,51 @@ metadata/_edit_use_anchors_ = true
 
 [node name="general_page" type="Control" parent="settings_panel/pages" unique_id=1369005819]
 layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="video_page" type="Control" parent="settings_panel/pages" unique_id=147355279]
 visible = false
 layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="audio_page" type="Control" parent="settings_panel/pages" unique_id=1798990427]
 visible = false
 layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="input_page" type="Control" parent="settings_panel/pages" unique_id=1945826218]
 visible = false
 layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="other_page" type="Control" parent="settings_panel/pages" unique_id=778923717]
 visible = false
 layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="packs_panel" type="ColorRect" parent="." unique_id=1217269858]
@@ -293,6 +309,26 @@ theme = ExtResource("3_rdn86")
 theme_override_font_sizes/font_size = 25
 text = "< BACK"
 metadata/_edit_use_anchors_ = true
+
+[node name="bottom_panel" type="ColorRect" parent="packs_panel" unique_id=1719376681]
+layout_mode = 0
+anchor_top = 0.8767123
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0, 0, 0, 0.16470589)
+metadata/_edit_use_anchors_ = true
+
+[node name="packs_list" type="BoxContainer" parent="packs_panel" unique_id=1419181441]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.013888889
+anchor_top = 0.02739726
+anchor_right = 0.9861111
+anchor_bottom = 0.84931505
+metadata/_edit_use_anchors_ = true
+
+[node name="pack_card" parent="packs_panel/packs_list" unique_id=1325413125 instance=ExtResource("4_etkb1")]
+layout_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1517618095]
 z_index = -1

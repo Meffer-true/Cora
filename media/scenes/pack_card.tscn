@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://b68b0dhm6lalc"]
+
+[ext_resource type="Script" uid="uid://6vxg0wmalquo" path="res://media/scripts/pack_card.gd" id="1_jv27h"]
+[ext_resource type="Theme" uid="uid://6m0lkmx12i3u" path="res://media/other/new_theme.tres" id="1_mvvso"]
+
+[node name="pack_card" type="ColorRect" unique_id=1325413125]
+custom_minimum_size = Vector2(64, 64)
+custom_maximum_size = Vector2(64, 64)
+anchors_preset = -1
+anchor_right = 0.055555556
+anchor_bottom = 0.09876543
+color = Color(0.21350348, 0.21350351, 0.21350345, 1)
+script = ExtResource("1_jv27h")
+metadata/_edit_use_anchors_ = true
+
+[node name="name_label" type="Label" parent="." unique_id=55016255]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.625
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource("1_mvvso")
+text = "test_pack"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
