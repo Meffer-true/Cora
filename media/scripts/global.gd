@@ -1,10 +1,12 @@
 extends Node
 
-var Breg : BlockRegistry
+var Reg : Registry
 
 func _ready() -> void:
-	Breg = BlockRegistry.new()
-	var blocks = Breg.read_folder("C:/Users/user/Desktop/blocks")
+	print("Глобал запущен.")
+	Reg = Registry.new()
+	Reg.path = "res://export"
+	Reg.scan_folder()
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("f11"):

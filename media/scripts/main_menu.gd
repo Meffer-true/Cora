@@ -7,7 +7,6 @@ func _ready() -> void:
 	pass
 
 func _process(delta: float) -> void:
-	print(current_panel)
 	smth_cube(delta)
 
 func smth_cube(delta: float) -> void:

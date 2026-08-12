@@ -11,9 +11,3 @@ class_name GenerationData
 @export_group("Levels")
 @export var sea_level: int
 @export var dirt_layer_thickness : int
-
-@export_group("Blocks' palette")
-@export var surface_block_id: StringName
-@export var subsurface_block_id: StringName
-@export var underground_block_id: StringName
-@export var fluid_block_id: StringName

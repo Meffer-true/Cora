@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="Manifest" format=3 uid="uid://5gb5t7datn0k"]
+
+[ext_resource type="Script" uid="uid://bjm8n6d2er3no" path="res://media/scripts/manifest.gd" id="1_xjkxy"]
+
+[resource]
+script = ExtResource("1_xjkxy")
+name = &"test_pack"
+metadata/_custom_type_script = "uid://bjm8n6d2er3no"
