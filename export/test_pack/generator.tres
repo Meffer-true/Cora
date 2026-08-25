@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="GenerationData" format=3 uid="uid://dk5m76gbki1de"]
+
+[ext_resource type="Script" uid="uid://c4v6dyxqftidh" path="res://media/scripts/generation_data.gd" id="1_70iv4"]
+
+[resource]
+script = ExtResource("1_70iv4")
+metadata/_custom_type_script = "uid://c4v6dyxqftidh"
