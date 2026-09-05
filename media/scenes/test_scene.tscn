@@ -4,7 +4,6 @@
 [ext_resource type="Script" uid="uid://ca3xohki8myiu" path="res://media/scripts/test_scene.gd" id="1_vbhsi"]
 [ext_resource type="Script" uid="uid://bvmcux1nfxwet" path="res://media/scripts/block_data.gd" id="2_l0di1"]
 [ext_resource type="Script" uid="uid://djebqw8kgxqh7" path="res://media/scripts/world_manager.gd" id="3_sq5bk"]
-[ext_resource type="Script" uid="uid://c4v6dyxqftidh" path="res://media/scripts/generation_data.gd" id="5_dmcnl"]
 
 [sub_resource type="Resource" id="Resource_sq5bk"]
 script = ExtResource("2_l0di1")
@@ -35,10 +34,6 @@ material = SubResource("StandardMaterial3D_sq5bk")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_dmcnl"]
 
-[sub_resource type="Resource" id="Resource_0gmxn"]
-script = ExtResource("5_dmcnl")
-metadata/_custom_type_script = "uid://c4v6dyxqftidh"
-
 [node name="test_scene" type="Node3D" unique_id=2109658335]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 44.143875)
 script = ExtResource("1_vbhsi")
@@ -67,5 +62,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.405445, 117.47336, -20.7592
 
 [node name="WorldManager" type="Node3D" parent="." unique_id=542104430]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -44)
+visible = false
 script = ExtResource("3_sq5bk")
-Gdata = SubResource("Resource_0gmxn")

@@ -25,42 +25,46 @@ func add_pack_card(name : StringName):
 func _on_play_button_pressed() -> void:
 	current_panel = $play_panel
 	$side_panel.visible = false; $play_panel.visible = true
-
-
 func _on_settings_button_pressed() -> void:
 	current_panel = $settings_panel
 	$side_panel.visible = false; $settings_panel.visible = true
-
-
 func _on_packs_button_pressed() -> void:
 	current_panel = $packs_panel
 	$side_panel.visible = false; $packs_panel.visible = true
-
-
 func _on_quit_button_pressed() -> void:
 	get_tree().quit()
-
 
 func _on_back_button_pressed() -> void:
 	$side_panel.visible = true; current_panel.visible = false
 	current_panel = $side_panel
 
-
 func _on_general_button_pressed() -> void:
-	pass # Replace with function body.
-
-
+	$settings_panel/pages/general_page.visible = true
+	$settings_panel/pages/video_page.visible = false
+	$settings_panel/pages/audio_page.visible = false
+	$settings_panel/pages/input_page.visible = false
+	$settings_panel/pages/other_page.visible = false
 func _on_video_button_pressed() -> void:
-	pass # Replace with function body.
-
-
+	$settings_panel/pages/general_page.visible = false
+	$settings_panel/pages/video_page.visible = true
+	$settings_panel/pages/audio_page.visible = false
+	$settings_panel/pages/input_page.visible = false
+	$settings_panel/pages/other_page.visible = false
 func _on_audio_button_pressed() -> void:
-	pass # Replace with function body.
-
-
+	$settings_panel/pages/general_page.visible = false
+	$settings_panel/pages/video_page.visible = false
+	$settings_panel/pages/audio_page.visible = true
+	$settings_panel/pages/input_page.visible = false
+	$settings_panel/pages/other_page.visible = false
 func _on_input_button_pressed() -> void:
-	pass # Replace with function body.
-
-
+	$settings_panel/pages/general_page.visible = false
+	$settings_panel/pages/video_page.visible = false
+	$settings_panel/pages/audio_page.visible = false
+	$settings_panel/pages/input_page.visible = true
+	$settings_panel/pages/other_page.visible = false
 func _on_other_button_pressed() -> void:
-	pass # Replace with function body.
+	$settings_panel/pages/general_page.visible = false
+	$settings_panel/pages/video_page.visible = false
+	$settings_panel/pages/audio_page.visible = false
+	$settings_panel/pages/input_page.visible = false
+	$settings_panel/pages/other_page.visible = true

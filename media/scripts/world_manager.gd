@@ -1,7 +1,7 @@
 extends Node
 class_name WorldManager
 
-@export var Gdata : GenerationData
+var Generator : WorldGenerator
 @export var sectors : Dictionary[Vector3i, Sector] = {}
 const SECTOR_SIZE = 10
 

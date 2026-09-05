@@ -88,31 +88,21 @@ func set_block(x: int, y: int, z: int, block_id: int) -> void:
 			blocks[idx] = block_id
 			update() # Запуск пересборки геометрии
 
-func test_generate(type:int) -> void:
-	for x in SIZE:
-		for y in SIZE:
-			for z in SIZE:
-				var idx : int = _get_index(x, y, z)
-				if type == 0:
-					blocks[idx] = 0
-				elif type == 1:
-					if y <= 4:
-						blocks[idx] = 1
-					elif y > 4:
-						blocks[idx] = 2
-				elif type == 2:
-					blocks[idx] = 3
 
 func _create_face(st: SurfaceTool, pos: Vector3, direction: Vector3i, color: Color) -> void:
 	var face_info = FACE_DATA[direction]
 	st.set_normal(face_info["normal"])
 	
-	# Устанавливаем цвет перед добавлением вершин. 
-	# SurfaceTool применит этот цвет ко всем вершинам, добавленным ниже.
 	st.set_color(color) 
 	
 	for vertex_offset in face_info["vertices"]:
 		st.add_vertex(pos + vertex_offset)
+
+func generate_blocks():
+	for x in SIZE:
+		for y in SIZE:
+			for z in SIZE:
+				var generator
 
 func generate_mesh_data() -> ArrayMesh:
 	var st = SurfaceTool.new()

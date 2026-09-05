@@ -24,7 +24,7 @@ func filter(resources : Array) -> void:
 			for i in resources.filter(func(res):return res is BlockData):
 				Blocks[str("%s:%s" % [name,i.id])] = i
 			for i in resources.filter(func(res):return res is GenerationData):
-				Generators[str("%s:%s" % [name,i.id])] = i
+				Generators[str("%s:%s" % [name,i.name])] = i
 		else:
 			print("Отсутствует манифест.")
 	else:
