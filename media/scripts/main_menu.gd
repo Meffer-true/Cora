@@ -2,6 +2,8 @@ extends Control
 
 var t : float = 1
 var current_panel 
+var resolutions : Array = [[1920,1080],[1366,768]]
+var window_modes : Array = [DisplayServer.WINDOW_MODE_WINDOWED,DisplayServer.WINDOW_MODE_FULLSCREEN,DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN]
 
 var card = preload("res://media/scenes/pack_card.tscn")
 
@@ -68,3 +70,11 @@ func _on_other_button_pressed() -> void:
 	$settings_panel/pages/audio_page.visible = false
 	$settings_panel/pages/input_page.visible = false
 	$settings_panel/pages/other_page.visible = true
+
+func _on_rs_option_button_item_selected(index: int) -> void:
+	DisplayServer.window_set_size(Vector2i(resolutions[index][0],resolutions[index][1]))
+func _on_wm_option_button_item_selected(index: int) -> void:
+	DisplayServer.window_set_mode(window_modes[index])
+func _on_wr_scale_drag_ended(value_changed: bool) -> void:
+	ProjectSettings.set_setting("display/window/stretch/scale", $settings_panel/pages/video_page/scale_setting/wr_scale.value/100)
+	get_window().content_scale_factor = $settings_panel/pages/video_page/scale_setting/wr_scale.value/100

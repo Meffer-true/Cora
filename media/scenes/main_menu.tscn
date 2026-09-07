@@ -151,6 +151,7 @@ text = "< BACK"
 metadata/_edit_use_anchors_ = true
 
 [node name="settings_panel" type="ColorRect" parent="." unique_id=1240850148]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -279,7 +280,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="OptionButton" type="OptionButton" parent="settings_panel/pages/video_page/resolution_setting" unique_id=1621401948]
+[node name="rs_option_button" type="OptionButton" parent="settings_panel/pages/video_page/resolution_setting" unique_id=1621401948]
 layout_mode = 0
 anchor_left = 0.56666666
 anchor_top = 0.16666667
@@ -315,16 +316,52 @@ horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="OptionButton" type="OptionButton" parent="settings_panel/pages/video_page/window_setting" unique_id=1904808864]
+[node name="wm_option_button" type="OptionButton" parent="settings_panel/pages/video_page/window_setting" unique_id=1904808864]
 layout_mode = 0
 anchor_left = 0.56666666
 anchor_top = 0.16666667
 anchor_right = 1.0
 anchor_bottom = 0.8333333
 theme = ExtResource("3_rdn86")
-theme_override_font_sizes/font_size = 20
-item_count = 1
+theme_override_font_sizes/font_size = 15
+alignment = 1
+selected = 0
+item_count = 3
+popup/item_0/text = "Windowed"
 popup/item_0/id = 0
+popup/item_1/text = "Fullscreen"
+popup/item_1/id = 1
+popup/item_2/text = "ExFullscreen"
+popup/item_2/id = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="scale_setting" type="Control" parent="settings_panel/pages/video_page" unique_id=171738204]
+layout_mode = 1
+anchor_left = 0.0069444445
+anchor_top = 0.26153848
+anchor_right = 0.21527778
+anchor_bottom = 0.35384616
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="settings_panel/pages/video_page/scale_setting" unique_id=1707795927]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.5
+anchor_bottom = 1.0
+theme = ExtResource("3_rdn86")
+theme_override_font_sizes/font_size = 25
+text = "window scale"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="wr_scale" type="HSlider" parent="settings_panel/pages/video_page/scale_setting" unique_id=2048828004]
+layout_mode = 0
+anchor_left = 0.53333336
+anchor_top = 0.16666667
+anchor_right = 1.0
+anchor_bottom = 0.8333333
+theme = ExtResource("3_rdn86")
 metadata/_edit_use_anchors_ = true
 
 [node name="audio_page" type="Control" parent="settings_panel/pages" unique_id=1798990427]
@@ -449,4 +486,7 @@ fov = 37.849285
 [connection signal="pressed" from="settings_panel/header/audio_button" to="." method="_on_audio_button_pressed"]
 [connection signal="pressed" from="settings_panel/header/input_button" to="." method="_on_input_button_pressed"]
 [connection signal="pressed" from="settings_panel/header/other_button" to="." method="_on_other_button_pressed"]
+[connection signal="item_selected" from="settings_panel/pages/video_page/resolution_setting/rs_option_button" to="." method="_on_rs_option_button_item_selected"]
+[connection signal="item_selected" from="settings_panel/pages/video_page/window_setting/wm_option_button" to="." method="_on_wm_option_button_item_selected"]
+[connection signal="drag_ended" from="settings_panel/pages/video_page/scale_setting/wr_scale" to="." method="_on_wr_scale_drag_ended"]
 [connection signal="pressed" from="packs_panel/back_button" to="." method="_on_back_button_pressed"]
