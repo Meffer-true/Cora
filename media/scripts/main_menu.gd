@@ -8,7 +8,8 @@ var window_modes : Array = [DisplayServer.WINDOW_MODE_WINDOWED,DisplayServer.WIN
 var card = preload("res://media/scenes/pack_card.tscn")
 
 func _ready() -> void:
-	global.im_here(self)
+	Global.im_here(self)
+	$settings_panel/pages/general_page/path_setting/path_label.text = Global.game_path
 
 func _process(delta: float) -> void:
 	smth_cube(delta)
@@ -78,3 +79,12 @@ func _on_wm_option_button_item_selected(index: int) -> void:
 func _on_wr_scale_drag_ended(value_changed: bool) -> void:
 	ProjectSettings.set_setting("display/window/stretch/scale", $settings_panel/pages/video_page/scale_setting/wr_scale.value/100)
 	get_window().content_scale_factor = $settings_panel/pages/video_page/scale_setting/wr_scale.value/100
+
+func _on_dir_ch_button_pressed() -> void:
+	var dialog = $settings_panel/pages/general_page/path_setting/FileDialog
+	dialog.access = FileDialog.ACCESS_FILESYSTEM
+	dialog.file_mode = FileDialog.FILE_MODE_OPEN_DIR
+	dialog.popup_centered_clamped(Vector2i(800, 600))
+func _on_file_dialog_dir_selected(dir: String) -> void:
+	Global.game_path = dir
+	$settings_panel/pages/general_page/path_setting/path_label.text = dir

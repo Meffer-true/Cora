@@ -1,6 +1,8 @@
 extends Node
 
+var game_path : String
 var Reg : Registry
+
 
 func _ready() -> void:
 	print("Глобал запущен.")

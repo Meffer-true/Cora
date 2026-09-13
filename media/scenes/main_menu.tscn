@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://cmvukpv3yy702" path="res://media/images/512x512/Gray/Prototype_Grid_Gray_06-512x512.png" id="3_7jeeb"]
 [ext_resource type="Theme" uid="uid://6m0lkmx12i3u" path="res://media/other/new_theme.tres" id="3_rdn86"]
 [ext_resource type="PackedScene" uid="uid://b68b0dhm6lalc" path="res://media/scenes/pack_card.tscn" id="4_etkb1"]
+[ext_resource type="Texture2D" uid="uid://by6pgft7y3ast" path="res://media/images/icons/folder_64dp_E3E3E3_FILL0_wght300_GRAD0_opsz48.png" id="4_kr4ra"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_7jeeb"]
 viewport_path = NodePath("SubViewport")
@@ -151,16 +152,106 @@ text = "< BACK"
 metadata/_edit_use_anchors_ = true
 
 [node name="worlds_list" type="ScrollContainer" parent="play_panel" unique_id=515750746]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.06849315
 anchor_right = 1.0
-anchor_bottom = 0.91780823
+anchor_bottom = 0.9315069
 metadata/_edit_use_anchors_ = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="play_panel/worlds_list" unique_id=599379646]
 layout_mode = 2
 
+[node name="footer" type="ColorRect" parent="play_panel" unique_id=145775849]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.8767123
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0, 0, 0, 0.29411766)
+metadata/_edit_use_anchors_ = true
+
+[node name="Button" type="Button" parent="play_panel/footer" unique_id=2095481135]
+custom_maximum_size = Vector2(160, 40)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.013888889
+anchor_top = 0.22222202
+anchor_right = 0.15277778
+anchor_bottom = 0.77777755
+theme = ExtResource("3_rdn86")
+text = "BUTTON1"
+metadata/_edit_use_anchors_ = true
+
+[node name="Button2" type="Button" parent="play_panel/footer" unique_id=1401497686]
+custom_maximum_size = Vector2(160, 40)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.18055555
+anchor_top = 0.22222202
+anchor_right = 0.31944445
+anchor_bottom = 0.77777755
+theme = ExtResource("3_rdn86")
+text = "BUTTON2"
+metadata/_edit_use_anchors_ = true
+
+[node name="Button3" type="Button" parent="play_panel/footer" unique_id=1985807733]
+custom_maximum_size = Vector2(160, 40)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.3472222
+anchor_top = 0.22222202
+anchor_right = 0.4861111
+anchor_bottom = 0.77777755
+theme = ExtResource("3_rdn86")
+text = "BUTTON3"
+metadata/_edit_use_anchors_ = true
+
+[node name="Button4" type="Button" parent="play_panel/footer" unique_id=1509558382]
+custom_maximum_size = Vector2(160, 40)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5138889
+anchor_top = 0.22222202
+anchor_right = 0.6527778
+anchor_bottom = 0.77777755
+theme = ExtResource("3_rdn86")
+text = "BUTTON4"
+metadata/_edit_use_anchors_ = true
+
+[node name="Button5" type="Button" parent="play_panel/footer" unique_id=1371968762]
+custom_maximum_size = Vector2(160, 40)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.6805556
+anchor_top = 0.22222202
+anchor_right = 0.8194444
+anchor_bottom = 0.77777755
+theme = ExtResource("3_rdn86")
+text = "BUTTON5"
+metadata/_edit_use_anchors_ = true
+
+[node name="Button6" type="Button" parent="play_panel/footer" unique_id=461846895]
+custom_maximum_size = Vector2(160, 40)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.8472222
+anchor_top = 0.22222202
+anchor_right = 0.9861111
+anchor_bottom = 0.77777755
+theme = ExtResource("3_rdn86")
+text = "BUTTON6"
+metadata/_edit_use_anchors_ = true
+
+[node name="header" type="ColorRect" parent="play_panel" unique_id=907921332]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.06849315
+color = Color(0, 0, 0, 0.29411766)
+metadata/_edit_use_anchors_ = true
+
 [node name="settings_panel" type="ColorRect" parent="." unique_id=1240850148]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -257,6 +348,60 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="path_setting" type="Control" parent="settings_panel/pages/general_page" unique_id=1002336959]
+layout_mode = 1
+anchor_left = 0.0069444445
+anchor_top = 0.015384615
+anchor_right = 0.375
+anchor_bottom = 0.10769231
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="settings_panel/pages/general_page/path_setting" unique_id=1940007636]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.26415095
+anchor_bottom = 1.0
+theme = ExtResource("3_rdn86")
+theme_override_font_sizes/font_size = 25
+text = "game path"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="dir_ch_button" type="Button" parent="settings_panel/pages/general_page/path_setting" unique_id=1380070316]
+custom_maximum_size = Vector2(32, 32)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.9245283
+anchor_top = 0.16666667
+anchor_right = 1.0
+anchor_bottom = 0.8333333
+theme = ExtResource("3_rdn86")
+theme_override_font_sizes/font_size = 20
+icon = ExtResource("4_kr4ra")
+expand_icon = true
+metadata/_edit_use_anchors_ = true
+
+[node name="FileDialog" type="FileDialog" parent="settings_panel/pages/general_page/path_setting" unique_id=501032616]
+access = 2
+
+[node name="ConfirmationDialog" type="ConfirmationDialog" parent="settings_panel/pages/general_page/path_setting" unique_id=1958853338]
+
+[node name="path_label" type="Label" parent="settings_panel/pages/general_page/path_setting" unique_id=1214545248]
+custom_maximum_size = Vector2(256, 64)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.28301886
+anchor_top = 0.16666667
+anchor_right = 0.8867925
+anchor_bottom = 0.8333333
+theme = ExtResource("3_rdn86")
+theme_override_colors/font_color = Color(0.39055228, 0.39055234, 0.39055225, 1)
+text = "/Projects/Godot/cora/cora/export"
+vertical_alignment = 1
+clip_text = true
 metadata/_edit_use_anchors_ = true
 
 [node name="video_page" type="Control" parent="settings_panel/pages" unique_id=147355279]
@@ -495,6 +640,8 @@ fov = 37.849285
 [connection signal="pressed" from="settings_panel/header/audio_button" to="." method="_on_audio_button_pressed"]
 [connection signal="pressed" from="settings_panel/header/input_button" to="." method="_on_input_button_pressed"]
 [connection signal="pressed" from="settings_panel/header/other_button" to="." method="_on_other_button_pressed"]
+[connection signal="pressed" from="settings_panel/pages/general_page/path_setting/dir_ch_button" to="." method="_on_dir_ch_button_pressed"]
+[connection signal="dir_selected" from="settings_panel/pages/general_page/path_setting/FileDialog" to="." method="_on_file_dialog_dir_selected"]
 [connection signal="item_selected" from="settings_panel/pages/video_page/resolution_setting/rs_option_button" to="." method="_on_rs_option_button_item_selected"]
 [connection signal="item_selected" from="settings_panel/pages/video_page/window_setting/wm_option_button" to="." method="_on_wm_option_button_item_selected"]
 [connection signal="drag_ended" from="settings_panel/pages/video_page/scale_setting/wr_scale" to="." method="_on_wr_scale_drag_ended"]

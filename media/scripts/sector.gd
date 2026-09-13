@@ -118,7 +118,7 @@ func generate_mesh_data() -> ArrayMesh:
 				var block_id = _get_block_id(x, y, z)
 				if block_id != 0:
 					var block_color : Color
-					block_color = global.Breg.Blocks[block_id-1].color
+					block_color = Global.Breg.Blocks[block_id-1].color
 					var block_pos = Vector3(x, y, z)
 					for dir_key in FACE_DATA.keys():
 						var neighbor_x = x + dir_key.x
