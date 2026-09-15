@@ -4,8 +4,12 @@
 [ext_resource type="FontFile" uid="uid://vtgecqyrsmk" path="res://media/other/Stengazeta/Stengazeta-Regular_5.ttf" id="2_e0gve"]
 [ext_resource type="Texture2D" uid="uid://cmvukpv3yy702" path="res://media/images/512x512/Gray/Prototype_Grid_Gray_06-512x512.png" id="3_7jeeb"]
 [ext_resource type="Theme" uid="uid://6m0lkmx12i3u" path="res://media/other/new_theme.tres" id="3_rdn86"]
+[ext_resource type="PackedScene" uid="uid://djhdjpb2rsc3k" path="res://media/scenes/world_card.tscn" id="4_8hkl8"]
 [ext_resource type="PackedScene" uid="uid://b68b0dhm6lalc" path="res://media/scenes/pack_card.tscn" id="4_etkb1"]
 [ext_resource type="Texture2D" uid="uid://by6pgft7y3ast" path="res://media/images/icons/folder_64dp_E3E3E3_FILL0_wght300_GRAD0_opsz48.png" id="4_kr4ra"]
+[ext_resource type="Texture2D" uid="uid://b6b2d672cm70y" path="res://media/images/icons/settings_64dp_E3E3E3_FILL0_wght400_GRAD0_opsz48.png" id="4_tri5c"]
+[ext_resource type="Texture2D" uid="uid://cm2b6rp06v5yg" path="res://media/images/icons/filter_alt_64dp_E3E3E3_FILL0_wght400_GRAD0_opsz48.png" id="5_8hkl8"]
+[ext_resource type="Texture2D" uid="uid://dtqi6cg7h4bqd" path="res://media/images/icons/search_64dp_E3E3E3_FILL0_wght400_GRAD0_opsz48.png" id="6_ldgr8"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_7jeeb"]
 viewport_path = NodePath("SubViewport")
@@ -59,6 +63,7 @@ script = ExtResource("1_gesxk")
 metadata/_edit_lock_ = true
 
 [node name="side_panel" type="ColorRect" parent="." unique_id=2053633050]
+visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 0.44400004
@@ -132,7 +137,6 @@ theme = ExtResource("3_rdn86")
 text = "QUIT"
 
 [node name="play_panel" type="ColorRect" parent="." unique_id=249481649]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -161,6 +165,11 @@ metadata/_edit_use_anchors_ = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="play_panel/worlds_list" unique_id=599379646]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="world_card" parent="play_panel/worlds_list/VBoxContainer" unique_id=1993052525 instance=ExtResource("4_8hkl8")]
+layout_mode = 2
 
 [node name="footer" type="ColorRect" parent="play_panel" unique_id=145775849]
 layout_mode = 1
@@ -171,7 +180,7 @@ anchor_bottom = 1.0
 color = Color(0, 0, 0, 0.29411766)
 metadata/_edit_use_anchors_ = true
 
-[node name="Button" type="Button" parent="play_panel/footer" unique_id=2095481135]
+[node name="enter_button" type="Button" parent="play_panel/footer" unique_id=2095481135]
 custom_maximum_size = Vector2(160, 40)
 layout_mode = 1
 anchors_preset = -1
@@ -180,10 +189,10 @@ anchor_top = 0.22222202
 anchor_right = 0.15277778
 anchor_bottom = 0.77777755
 theme = ExtResource("3_rdn86")
-text = "BUTTON1"
+text = "ENTER"
 metadata/_edit_use_anchors_ = true
 
-[node name="Button2" type="Button" parent="play_panel/footer" unique_id=1401497686]
+[node name="add_edit_button" type="Button" parent="play_panel/footer" unique_id=1401497686]
 custom_maximum_size = Vector2(160, 40)
 layout_mode = 1
 anchors_preset = -1
@@ -192,34 +201,10 @@ anchor_top = 0.22222202
 anchor_right = 0.31944445
 anchor_bottom = 0.77777755
 theme = ExtResource("3_rdn86")
-text = "BUTTON2"
+text = "ADD/EDIT"
 metadata/_edit_use_anchors_ = true
 
-[node name="Button3" type="Button" parent="play_panel/footer" unique_id=1985807733]
-custom_maximum_size = Vector2(160, 40)
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.3472222
-anchor_top = 0.22222202
-anchor_right = 0.4861111
-anchor_bottom = 0.77777755
-theme = ExtResource("3_rdn86")
-text = "BUTTON3"
-metadata/_edit_use_anchors_ = true
-
-[node name="Button4" type="Button" parent="play_panel/footer" unique_id=1509558382]
-custom_maximum_size = Vector2(160, 40)
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.5138889
-anchor_top = 0.22222202
-anchor_right = 0.6527778
-anchor_bottom = 0.77777755
-theme = ExtResource("3_rdn86")
-text = "BUTTON4"
-metadata/_edit_use_anchors_ = true
-
-[node name="Button5" type="Button" parent="play_panel/footer" unique_id=1371968762]
+[node name="delete_button" type="Button" parent="play_panel/footer" unique_id=1371968762]
 custom_maximum_size = Vector2(160, 40)
 layout_mode = 1
 anchors_preset = -1
@@ -228,20 +213,57 @@ anchor_top = 0.22222202
 anchor_right = 0.8194444
 anchor_bottom = 0.77777755
 theme = ExtResource("3_rdn86")
-text = "BUTTON5"
+text = "DELETE"
 metadata/_edit_use_anchors_ = true
 
-[node name="Button6" type="Button" parent="play_panel/footer" unique_id=461846895]
+[node name="settings_button" type="Button" parent="play_panel/footer" unique_id=461846895]
 custom_maximum_size = Vector2(160, 40)
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.8472222
+anchor_left = 0.9583333
 anchor_top = 0.22222202
-anchor_right = 0.9861111
+anchor_right = 0.9930556
 anchor_bottom = 0.77777755
 theme = ExtResource("3_rdn86")
-text = "BUTTON6"
+icon = ExtResource("4_tri5c")
+expand_icon = true
 metadata/_edit_use_anchors_ = true
+
+[node name="filter_button" type="Button" parent="play_panel/footer" unique_id=801965706]
+custom_maximum_size = Vector2(160, 40)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.9097222
+anchor_top = 0.22222202
+anchor_right = 0.9444444
+anchor_bottom = 0.77777755
+theme = ExtResource("3_rdn86")
+icon = ExtResource("5_8hkl8")
+expand_icon = true
+metadata/_edit_use_anchors_ = true
+
+[node name="serch_line" type="LineEdit" parent="play_panel/footer" unique_id=1041715889]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.3888889
+anchor_top = 0.22222222
+anchor_right = 0.6111111
+anchor_bottom = 0.7777778
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_rdn86")
+icon_expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect" type="TextureRect" parent="play_panel/footer/serch_line" unique_id=1520385297]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.156
+anchor_bottom = 1.0
+offset_right = 0.063999176
+texture = ExtResource("6_ldgr8")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="header" type="ColorRect" parent="play_panel" unique_id=907921332]
 layout_mode = 1
@@ -252,6 +274,7 @@ color = Color(0, 0, 0, 0.29411766)
 metadata/_edit_use_anchors_ = true
 
 [node name="settings_panel" type="ColorRect" parent="." unique_id=1240850148]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

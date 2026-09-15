@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://djhdjpb2rsc3k"]
+
+[ext_resource type="Script" uid="uid://cg5pvqlfib8ak" path="res://media/scripts/world_card.gd" id="1_5gajr"]
+
+[node name="world_card" type="TextureRect" unique_id=1993052525]
+custom_minimum_size = Vector2(0, 64)
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.09876543
+expand_mode = 1
+script = ExtResource("1_5gajr")
+metadata/_edit_use_anchors_ = true
