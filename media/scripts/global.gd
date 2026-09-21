@@ -2,13 +2,13 @@ extends Node
 
 var game_path : String
 var Reg : Registry
-var file_manager : FileManager
+
 
 func _ready() -> void:
 	print("Глобал запущен.")
 	Reg = Registry.new()
 	Reg.path = "res://export"
-	Reg.filter(file_manager.scan_folder(file_manager.engine_path))
+	Reg.scan_folder()
 
 func im_here(menu):
 	for i in Reg.Packs:
