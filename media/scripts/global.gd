@@ -14,6 +14,9 @@ func im_here(menu):
 	for i in Reg.Packs:
 		menu.add_pack_card(i.pack_name)
 
+func inspector_done(code: int):
+	get_tree().change_scene_to_file("res://media/scenes/main_menu.tscn")
+
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("f11"):
 		match DisplayServer.window_get_mode():

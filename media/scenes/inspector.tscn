@@ -1,0 +1,69 @@
+[gd_scene format=3 uid="uid://b3sjqycsdltok"]
+
+[ext_resource type="Script" uid="uid://cnud28p72pv2r" path="res://media/scripts/inspector.gd" id="1_ar1sb"]
+[ext_resource type="Shader" uid="uid://d2ewcrfyngd12" path="res://media/shaders/wavy_color.gdshader" id="2_toqwc"]
+[ext_resource type="Theme" uid="uid://6m0lkmx12i3u" path="res://media/other/new_theme.tres" id="3_rr7ti"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ar1sb"]
+shader = ExtResource("2_toqwc")
+shader_parameter/base_color = Color(1, 0, 0.016666412, 1)
+shader_parameter/highlight_color = Color(0.71, 0, 0, 1)
+shader_parameter/brightness = 1.0
+shader_parameter/liquid_speed = 0.10000000149012
+
+[node name="inspector" type="Control" unique_id=124124904]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ar1sb")
+
+[node name="background_rect" type="ColorRect" parent="." unique_id=593983666]
+material = SubResource("ShaderMaterial_ar1sb")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.49354547, 0.49354553, 0.49354553, 1)
+
+[node name="incpector_window" type="ColorRect" parent="." unique_id=107272038]
+layout_mode = 0
+anchor_left = 0.055555556
+anchor_top = 0.09876543
+anchor_right = 0.9444444
+anchor_bottom = 0.90123457
+color = Color(0.28, 0.28, 0.28, 0.7607843)
+metadata/_edit_use_anchors_ = true
+
+[node name="next_button" type="Button" parent="incpector_window" unique_id=2108196919]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.875
+anchor_top = 0.86153847
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource("3_rr7ti")
+text = "NEXT"
+metadata/_edit_use_anchors_ = true
+
+[node name="DEV_state_choosing_button" type="OptionButton" parent="incpector_window" unique_id=1796859893]
+layout_mode = 0
+anchor_left = 0.875
+anchor_top = 0.61538464
+anchor_right = 1.0
+anchor_bottom = 0.65384614
+selected = 0
+item_count = 3
+popup/item_0/text = "VALID"
+popup/item_0/id = 0
+popup/item_1/text = "WARNING"
+popup/item_1/id = 1
+popup/item_2/text = "CRITICAL"
+popup/item_2/id = 2
+metadata/_edit_use_anchors_ = true
+
+[connection signal="pressed" from="incpector_window/next_button" to="." method="_on_next_button_pressed"]

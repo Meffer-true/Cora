@@ -11,9 +11,9 @@ config_version=5
 [application]
 
 config/name="Cora"
-run/main_scene="uid://c3p25wn8b4n7c"
+run/main_scene="uid://xuol0ljmbo8y"
 config/features=PackedStringArray("4.7", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="uid://48b3by6cwcip"
 
 [autoload]
 
@@ -23,6 +23,10 @@ Global="*uid://xuol0ljmbo8y"
 
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/ai_assistant_hub/plugin.cfg")
 
 [input]
 
@@ -95,6 +99,16 @@ f11={
 [physics]
 
 3d/physics_engine="Jolt Physics"
+
+[plugins]
+
+ai_assistant_hub/options/debug_mode=0
+ai_assistant_hub/llm_api="ollama_api"
+ai_assistant_hub/preferences/thinking_target=0
+ai_assistant_hub/preferences/skip_greeting=false
+ai_assistant_hub/preferences/always_scroll_to_bottom=false
+ai_assistant_hub/preferences/audio_hints=true
+ai_assistant_hub/options/debug_http_content=false
 
 [rendering]
 
