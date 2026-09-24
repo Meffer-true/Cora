@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Cora"
-run/main_scene="uid://xuol0ljmbo8y"
+run/main_scene="uid://b3sjqycsdltok"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="uid://48b3by6cwcip"
 

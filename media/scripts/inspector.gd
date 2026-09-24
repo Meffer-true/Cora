@@ -14,7 +14,7 @@ var brightness : float
 @onready var bkg = $background_rect
 
 func _ready() -> void:
-	current_state = state.CRITICAL
+	current_state = state.VALID
 
 func _process(delta: float) -> void:
 	t+=delta
