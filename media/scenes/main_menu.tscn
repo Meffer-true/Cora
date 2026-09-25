@@ -242,28 +242,20 @@ icon = ExtResource("5_8hkl8")
 expand_icon = true
 metadata/_edit_use_anchors_ = true
 
-[node name="serch_line" type="LineEdit" parent="play_panel/footer" unique_id=1041715889]
+[node name="search_line" type="LineEdit" parent="play_panel/footer" unique_id=1041715889]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.3888889
-anchor_top = 0.22222222
+anchor_top = 0.22
 anchor_right = 0.6111111
 anchor_bottom = 0.7777778
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("3_rdn86")
-icon_expand_mode = 1
+right_icon = ExtResource("6_ldgr8")
+icon_expand_mode = 2
+right_icon_scale = 0.67
 metadata/_edit_use_anchors_ = true
-
-[node name="TextureRect" type="TextureRect" parent="play_panel/footer/serch_line" unique_id=1520385297]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 0.156
-anchor_bottom = 1.0
-offset_right = 0.063999176
-texture = ExtResource("6_ldgr8")
-expand_mode = 1
-stretch_mode = 5
 
 [node name="header" type="ColorRect" parent="play_panel" unique_id=907921332]
 layout_mode = 1
@@ -411,6 +403,8 @@ metadata/_edit_use_anchors_ = true
 access = 2
 
 [node name="ConfirmationDialog" type="ConfirmationDialog" parent="settings_panel/pages/general_page/path_setting" unique_id=1958853338]
+mode = 4
+dialog_text = "Are you sure? *wink-wink\""
 
 [node name="path_label" type="Label" parent="settings_panel/pages/general_page/path_setting" unique_id=1214545248]
 custom_maximum_size = Vector2(256, 64)

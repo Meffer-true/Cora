@@ -86,5 +86,6 @@ func _on_dir_ch_button_pressed() -> void:
 	dialog.file_mode = FileDialog.FILE_MODE_OPEN_DIR
 	dialog.popup_centered_clamped(Vector2i(800, 600))
 func _on_file_dialog_dir_selected(dir: String) -> void:
+	$settings_panel/pages/general_page/path_setting/ConfirmationDialog.popup_centered()
 	Global.game_path = dir
 	$settings_panel/pages/general_page/path_setting/path_label.text = dir
