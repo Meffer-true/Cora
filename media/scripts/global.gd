@@ -1,21 +1,39 @@
 extends Node
 
-var game_path : String
+var inspector_ready : bool = false
+
+var game_path : String:
+	set(v):
+		print("Новая директория контента: " + str(v))
 var Reg : Registry
 
+var main_menu : Node
+var inspector : Node
 
 func _ready() -> void:
 	print("Глобал запущен.")
-	Reg = Registry.new()
-	Reg.path = "res://export"
-	Reg.scan_folder()
+	
+	
 
-func im_here(menu):
-	for i in Reg.Packs:
-		menu.add_pack_card(i.pack_name)
+func im_here(me:Node, message = 0):
+	match me.get_meta("type"):
+		"menu":
+			main_menu = me
+			for i in Reg.Packs:
+				me.add_pack_card(i.pack_name)
+		"inspector":
+			print("inspector")
+			inspector = me
+			me.boot()
+			me.boot_ready.connect(func():
+				print("Принято, передаю папку Реестру.")
+				Reg = Registry.new()
+				Reg.path = game_path
+				Reg.scan_folder()
+				)
+	
 
-func inspector_done(code: int):
-	get_tree().change_scene_to_file("res://media/scenes/main_menu.tscn")
+	
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("f11"):

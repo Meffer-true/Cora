@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://cnud28p72pv2r" path="res://media/scripts/inspector.gd" id="1_ar1sb"]
 [ext_resource type="Shader" uid="uid://d2ewcrfyngd12" path="res://media/shaders/wavy_color.gdshader" id="2_toqwc"]
 [ext_resource type="Theme" uid="uid://6m0lkmx12i3u" path="res://media/other/new_theme.tres" id="3_rr7ti"]
+[ext_resource type="Texture2D" uid="uid://b401dwmcq5yyc" path="res://media/images/icons/check_64dp_E3E3E3_FILL0_wght400_GRAD0_opsz48.png" id="4_h5srr"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ar1sb"]
 shader = ExtResource("2_toqwc")
@@ -19,6 +20,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ar1sb")
+metadata/type = "inspector"
 
 [node name="background_rect" type="ColorRect" parent="." unique_id=593983666]
 material = SubResource("ShaderMaterial_ar1sb")
@@ -30,16 +32,17 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.49354547, 0.49354553, 0.49354553, 1)
 
-[node name="incpector_window" type="ColorRect" parent="." unique_id=107272038]
-layout_mode = 0
-anchor_left = 0.055555556
+[node name="inspector_window" type="ColorRect" parent="." unique_id=107272038]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.048611112
 anchor_top = 0.09876543
-anchor_right = 0.9444444
+anchor_right = 0.9375
 anchor_bottom = 0.90123457
 color = Color(0.28, 0.28, 0.28, 0.7607843)
 metadata/_edit_use_anchors_ = true
 
-[node name="next_button" type="Button" parent="incpector_window" unique_id=2108196919]
+[node name="next_button" type="Button" parent="inspector_window" unique_id=2108196919]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.875
@@ -50,7 +53,7 @@ theme = ExtResource("3_rr7ti")
 text = "NEXT"
 metadata/_edit_use_anchors_ = true
 
-[node name="DEV_state_choosing_button" type="OptionButton" parent="incpector_window" unique_id=1796859893]
+[node name="DEV_state_choosing_button" type="OptionButton" parent="inspector_window" unique_id=1796859893]
 layout_mode = 0
 anchor_left = 0.875
 anchor_top = 0.61538464
@@ -66,4 +69,58 @@ popup/item_2/text = "CRITICAL"
 popup/item_2/id = 2
 metadata/_edit_use_anchors_ = true
 
-[connection signal="pressed" from="incpector_window/next_button" to="." method="_on_next_button_pressed"]
+[node name="set_path_form" type="Window" parent="inspector_window" unique_id=1191930329]
+oversampling_override = 1.0
+title = "Form"
+initial_position = 1
+size = Vector2i(200, 100)
+visible = false
+transient = true
+min_size = Vector2i(200, 100)
+
+[node name="info_text" type="Label" parent="inspector_window/set_path_form" unique_id=1799717778]
+custom_minimum_size = Vector2(192, 40)
+anchors_preset = -1
+anchor_left = 0.02
+anchor_top = 0.06
+anchor_right = 0.98
+anchor_bottom = 0.46
+size_flags_horizontal = 4
+theme = ExtResource("3_rr7ti")
+text = "Please select the path to the game"
+horizontal_alignment = 1
+autowrap_mode = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="path_text" type="Label" parent="inspector_window/set_path_form" unique_id=1696266722]
+custom_minimum_size = Vector2(0, 40)
+anchors_preset = -1
+anchor_left = 0.02
+anchor_top = 0.54
+anchor_right = 0.82
+anchor_bottom = 1.08
+size_flags_horizontal = 4
+theme = ExtResource("3_rr7ti")
+text = "Инициализация сканирования папки с ресурсами"
+horizontal_alignment = 1
+autowrap_mode = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="FileDialog" type="FileDialog" parent="inspector_window/set_path_form" unique_id=903528712]
+oversampling_override = 1.0
+title = "Open a Directory"
+position = Vector2i(0, 36)
+file_mode = 2
+access = 2
+
+[node name="confirm_button" type="Button" parent="inspector_window/set_path_form" unique_id=507993831]
+anchors_preset = -1
+anchor_left = 0.78
+anchor_top = 0.54
+anchor_right = 0.98
+anchor_bottom = 0.94
+icon = ExtResource("4_h5srr")
+expand_icon = true
+metadata/_edit_use_anchors_ = true
+
+[connection signal="pressed" from="inspector_window/next_button" to="." method="_on_next_button_pressed"]

@@ -61,6 +61,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_gesxk")
 metadata/_edit_lock_ = true
+metadata/type = "menu"
 
 [node name="side_panel" type="ColorRect" parent="." unique_id=2053633050]
 layout_mode = 1
