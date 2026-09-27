@@ -1,6 +1,6 @@
 extends Control
 
-signal boot_ready
+signal boot_ready(dir)
 
 var t : float
 
@@ -51,9 +51,8 @@ func boot() -> void:
 	if FileAccess.file_exists(boot_path):
 		var error = config.load(boot_path) 
 		if error == OK:
-			print('1')
 			Global.game_path = config.get_value("Main","game_path")
-			boot_ready.emit()
+			boot_ready.emit(config.get_value("Main","game_path"))
 		else:
 			print("Файл не может быть открыт.")
 	else:
@@ -70,7 +69,7 @@ func boot() -> void:
 			var save_err = config.save(boot_path)
 			if save_err == OK:
 				print("boot.ini успешно сохранен.")
-				boot_ready.emit()
+				boot_ready.emit(config.save(boot_path))
 			else:
 				print("Нам всем пиздец.")
 			)

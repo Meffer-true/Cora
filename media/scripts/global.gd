@@ -5,6 +5,7 @@ var inspector_ready : bool = false
 var game_path : String:
 	set(v):
 		print("Новая директория контента: " + str(v))
+		game_path = v
 var Reg : Registry
 
 var main_menu : Node
@@ -24,13 +25,15 @@ func im_here(me:Node, message = 0):
 		"inspector":
 			print("inspector")
 			inspector = me
-			me.boot()
-			me.boot_ready.connect(func():
-				print("Принято, передаю папку Реестру.")
+			me.boot_ready.connect(func(dir):
+				print("Директория (%s) установлена успешно. Отдаю путь к ней Реестру." %[dir])
 				Reg = Registry.new()
+				game_path = dir
+				print(game_path)
 				Reg.path = game_path
 				Reg.scan_folder()
 				)
+			me.boot()
 	
 
 	

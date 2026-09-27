@@ -6,7 +6,9 @@ var Blocks : Dictionary
 var Entities : Array[Entity_Data]
 var Generators : Dictionary
 
-var path : String
+var path : String:
+	set(v):
+		print("Реестр принял изменение директории (%s)." %[v])
 
 func filter(resources : Array) -> void:
 	print("Получен пак.")
