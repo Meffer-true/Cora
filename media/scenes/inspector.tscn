@@ -42,6 +42,25 @@ anchor_bottom = 0.90123457
 color = Color(0.28, 0.28, 0.28, 0.7607843)
 metadata/_edit_use_anchors_ = true
 
+[node name="render_choose_list" type="OptionButton" parent="inspector_window" unique_id=139726781]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.03125
+anchor_top = 0.06153846
+anchor_right = 0.2578125
+anchor_bottom = 0.16923077
+theme = ExtResource("3_rr7ti")
+theme_override_font_sizes/font_size = 24
+alignment = 1
+autowrap_mode = 2
+selected = 0
+item_count = 2
+popup/item_0/text = "gl_compatability"
+popup/item_0/id = 0
+popup/item_1/text = "forward_plus"
+popup/item_1/id = 1
+metadata/_edit_use_anchors_ = true
+
 [node name="next_button" type="Button" parent="inspector_window" unique_id=2108196919]
 layout_mode = 1
 anchors_preset = -1
@@ -54,6 +73,7 @@ text = "NEXT"
 metadata/_edit_use_anchors_ = true
 
 [node name="DEV_state_choosing_button" type="OptionButton" parent="inspector_window" unique_id=1796859893]
+visible = false
 layout_mode = 0
 anchor_left = 0.875
 anchor_top = 0.61538464

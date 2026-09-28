@@ -18,6 +18,32 @@ var brightness : float
 func _ready() -> void:
 	current_state = state.VALID
 	Global.im_here(self)
+	var config_a = ConfigFile.new()
+	config_a.load(Global.game_path + "/project.godot") #WARNING Такая запись сработает только в редакторе. TODO записывать все в boot.ini
+	var mode_a = config_a.get_value("rendering", "renderer/rendering_method", "gl_compatibility")
+	match mode_a:
+		"gl_compatibility":
+			$inspector_window/render_choose_list.selected = 0
+		"forward_plus":
+			$inspector_window/render_choose_list.selected = 1
+	
+	$inspector_window/render_choose_list.item_selected.connect(func(index): 
+		var config_b = ConfigFile.new()
+		var mode_b
+		match index:
+			0:
+				mode_b = "gl_compatibility"
+			1:
+				mode_b = "forward_plus"
+		config_b.load(Global.game_path + "/project.godot")
+		config_b.set_value("rendering", "renderer/rendering_method", mode_b)
+		config_b.save(Global.game_path + "/project.godot")
+		var pid = OS.create_process(OS.get_executable_path(),PackedStringArray(["--rendering-method",mode_b]))
+		if pid != 1:
+			get_tree().quit()
+		else:
+			push_error("Не удалось перезапустить игру.")
+		)
 
 func _process(delta: float) -> void:
 	t+=delta
