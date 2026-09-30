@@ -1,6 +1,7 @@
 extends Node
 
 var inspector_ready : bool = false
+var is_restar_required : bool = false
 
 var game_path : String:
 	set(v):
@@ -34,9 +35,16 @@ func im_here(me:Node, message = 0):
 				Reg.scan_folder()
 				)
 			me.boot()
-	
 
-	
+func restart(forced: bool = false, arguments: PackedStringArray = PackedStringArray([])):
+	if forced:
+		var pid = OS.create_process(OS.get_executable_path(),arguments)
+		if pid != 1:
+			get_tree().quit()
+		else:
+			push_error("Не удалось перезапустить игру.")
+	else:
+		var current_scene = get_tree().current_scene
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("f11"):

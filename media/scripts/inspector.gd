@@ -42,7 +42,7 @@ func _ready() -> void:
 		if pid != 1:
 			get_tree().quit()
 		else:
-			push_error("Не удалось перезапустить игру.")
+			push_error()
 		)
 
 func _process(delta: float) -> void:
