@@ -35,58 +35,11 @@ color = Color(0.49354547, 0.49354553, 0.49354553, 1)
 [node name="inspector_window" type="ColorRect" parent="." unique_id=107272038]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.048611112
+anchor_left = 0.055555556
 anchor_top = 0.09876543
-anchor_right = 0.9375
+anchor_right = 0.9444444
 anchor_bottom = 0.90123457
 color = Color(0.28, 0.28, 0.28, 0.7607843)
-metadata/_edit_use_anchors_ = true
-
-[node name="render_choose_list" type="OptionButton" parent="inspector_window" unique_id=139726781]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.03125
-anchor_top = 0.06153846
-anchor_right = 0.2578125
-anchor_bottom = 0.16923077
-theme = ExtResource("3_rr7ti")
-theme_override_font_sizes/font_size = 24
-alignment = 1
-autowrap_mode = 2
-selected = 0
-item_count = 2
-popup/item_0/text = "gl_compatability"
-popup/item_0/id = 0
-popup/item_1/text = "forward_plus"
-popup/item_1/id = 1
-metadata/_edit_use_anchors_ = true
-
-[node name="next_button" type="Button" parent="inspector_window" unique_id=2108196919]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.875
-anchor_top = 0.86153847
-anchor_right = 1.0
-anchor_bottom = 1.0
-theme = ExtResource("3_rr7ti")
-text = "NEXT"
-metadata/_edit_use_anchors_ = true
-
-[node name="DEV_state_choosing_button" type="OptionButton" parent="inspector_window" unique_id=1796859893]
-visible = false
-layout_mode = 0
-anchor_left = 0.875
-anchor_top = 0.61538464
-anchor_right = 1.0
-anchor_bottom = 0.65384614
-selected = 0
-item_count = 3
-popup/item_0/text = "VALID"
-popup/item_0/id = 0
-popup/item_1/text = "WARNING"
-popup/item_1/id = 1
-popup/item_2/text = "CRITICAL"
-popup/item_2/id = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="set_path_form" type="Window" parent="inspector_window" unique_id=1191930329]
@@ -143,4 +96,80 @@ icon = ExtResource("4_h5srr")
 expand_icon = true
 metadata/_edit_use_anchors_ = true
 
-[connection signal="pressed" from="inspector_window/next_button" to="." method="_on_next_button_pressed"]
+[node name="header" type="ColorRect" parent="inspector_window" unique_id=793476596]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.12307692
+color = Color(0, 0, 0, 0.3254902)
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="inspector_window/header" unique_id=1774500624]
+layout_mode = 0
+anchor_left = 0.3125
+anchor_top = 0.125
+anchor_right = 0.6875
+anchor_bottom = 0.921875
+offset_bottom = -11.0
+theme = ExtResource("3_rr7ti")
+theme_override_font_sizes/font_size = 50
+text = "Inspector"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="body" type="Control" parent="inspector_window" unique_id=270520946]
+anchors_preset = 0
+anchor_top = 0.12307692
+anchor_right = 1.0
+anchor_bottom = 1.0
+metadata/_edit_use_anchors_ = true
+
+[node name="next_button" type="Button" parent="inspector_window/body" unique_id=2108196919]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.875
+anchor_top = 0.877193
+anchor_right = 0.9921875
+anchor_bottom = 0.9848853
+theme = ExtResource("3_rr7ti")
+text = "NEXT"
+metadata/_edit_use_anchors_ = true
+
+[node name="render_settings" type="Control" parent="inspector_window/body" unique_id=502538845]
+anchors_preset = 0
+anchor_left = 0.03125
+anchor_top = 0.07017544
+anchor_right = 0.375
+anchor_bottom = 0.21052632
+metadata/_edit_use_anchors_ = true
+
+[node name="render_choose_list" type="OptionButton" parent="inspector_window/body/render_settings" unique_id=139726781]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.4545454
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource("3_rr7ti")
+theme_override_font_sizes/font_size = 24
+alignment = 1
+autowrap_mode = 2
+selected = 0
+item_count = 2
+popup/item_0/text = "gl_compatability"
+popup/item_0/id = 0
+popup/item_1/text = "forward_plus"
+popup/item_1/id = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="inspector_window/body/render_settings" unique_id=713863402]
+layout_mode = 0
+anchor_right = 0.4318182
+anchor_bottom = 1.0
+theme = ExtResource("3_rr7ti")
+theme_override_font_sizes/font_size = 28
+text = "• Render mode"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[connection signal="pressed" from="inspector_window/body/next_button" to="." method="_on_next_button_pressed"]

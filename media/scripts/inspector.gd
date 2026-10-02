@@ -14,20 +14,21 @@ var base_color : Color
 var brightness : float
 
 @onready var bkg = $background_rect
+@onready var render_choose_button = $inspector_window/body/render_settings/render_choose_list
 
 func _ready() -> void:
 	current_state = state.VALID
 	Global.im_here(self)
 	var config_a = ConfigFile.new()
-	config_a.load(Global.game_path + "/project.godot") #WARNING Такая запись сработает только в редакторе. TODO записывать все в boot.ini
+	config_a.load(Global.game_path + "/project.godot") #WARNING Такая запись сработает только в редакторе. #TODO записывать все в boot.ini
 	var mode_a = config_a.get_value("rendering", "renderer/rendering_method", "gl_compatibility")
 	match mode_a:
 		"gl_compatibility":
-			$inspector_window/render_choose_list.selected = 0
+			render_choose_button.selected = 0
 		"forward_plus":
-			$inspector_window/render_choose_list.selected = 1
+			render_choose_button.selected = 1
 	
-	$inspector_window/render_choose_list.item_selected.connect(func(index): 
+	render_choose_button.item_selected.connect(func(index): 
 		var config_b = ConfigFile.new()
 		var mode_b
 		match index:
@@ -47,7 +48,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	t+=delta
-	match $inspector_window/DEV_state_choosing_button.selected:
+	match render_choose_button.selected:
 		0: current_state = state.VALID
 		1: current_state = state.WARNING
 		2: current_state = state.CRITICAL
