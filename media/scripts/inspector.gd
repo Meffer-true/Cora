@@ -79,6 +79,8 @@ func boot() -> void:
 		var error = config.load(boot_path) 
 		if error == OK:
 			Global.game_path = config.get_value("Main","game_path")
+			if config.get_value("Main", "render_method", "gl_compatability") != "gl_compatability":
+				Global.restart(true,PackedStringArray(["--rendering-method","forward_plus"]))
 			boot_ready.emit(config.get_value("Main","game_path"))
 		else:
 			print("Файл не может быть открыт.")
@@ -96,7 +98,7 @@ func boot() -> void:
 			var save_err = config.save(boot_path)
 			if save_err == OK:
 				print("boot.ini успешно сохранен.")
-				boot_ready.emit(config.save(boot_path))
+				boot_ready.emit(boot_path)
 			else:
 				print("Нам всем пиздец.")
 			)
