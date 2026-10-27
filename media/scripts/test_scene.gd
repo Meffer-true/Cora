@@ -5,5 +5,4 @@ extends Node3D
 @export var block : BlockData
 
 func _ready() -> void:
-	
-	pass
+	WM.generate(-1,-1,-1,1,1,1,0)

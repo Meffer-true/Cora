@@ -10,6 +10,9 @@ var path : String:
 	set(v):
 		print("Реестр принял изменение директории (%s)." %[v])
 
+func _init() -> void:
+	Blocks["cora:void"] #TODO Определится со структурой хранения блоков в Blocks
+
 func filter(resources : Array) -> void:
 	print("Получен пак.")
 	if resources != []:

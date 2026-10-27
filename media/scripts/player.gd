@@ -1,3 +1,4 @@
+#TODO разбить игрока на модули
 extends CharacterBody3D
 
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
