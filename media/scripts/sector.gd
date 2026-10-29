@@ -10,16 +10,19 @@ var blocks : Array[int] # Блоки отдельного сектора
 var mesh_instance: MeshInstance3D # Будущий контейнер для всех текстур, пока что просто уточняем тип
 var collision_shape: CollisionShape3D # Будущий контейнер для всех коллизий, пока что просто уточняем тип
 
+var sector_pos : Vector3i
+
 func _ready() -> void:
 	mesh_instance = MeshInstance3D.new() # Добавляем сам объект будущей текстуры в переменную
 	add_child(mesh_instance) # Добавляем его в древо нод
 	collision_shape = CollisionShape3D.new() # Добавляем сам объект будущей коллизии в переменную
 	add_child(collision_shape) # Добавляем его в древо нод
 	init_buffer() # Наполняем объект пустотой, чтобы не возникало ошибок при взаимодействии с ним
-	block_palette[0] = "cora:void"
 func init_buffer(): # Функция для заполнения сектора пустыми блоками
 	blocks.resize(SIZE * SIZE * SIZE)
 	blocks.fill(0)
+	block_palette.resize(1)
+	block_palette[0] = "cora:void"
 
 func _get_index(x: int, y: int, z: int): # Вспомогательная функция для получения индекса в одномерном массиве
 	return x + (y * SIZE) + (z * SIZE * SIZE)

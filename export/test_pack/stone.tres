@@ -5,6 +5,6 @@
 [resource]
 script = ExtResource("1_c2ch4")
 name = "Stone"
-id = "stone"
+id = &"cora:stone"
 color = Color(0.7260352, 0.72603524, 0.7260352, 1)
 metadata/_custom_type_script = "uid://bvmcux1nfxwet"

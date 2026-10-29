@@ -29,7 +29,7 @@ func _input(event: InputEvent) -> void:
 		else:
 			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
-func interact_with_voxel(is_placing: bool, new_block_id: int = 1) -> void:
+func interact_with_voxel(is_placing: bool, new_block_name: StringName = "cora:void") -> void:
 	if not raycast.is_colliding():
 		return
 	var collider = raycast.get_collider()
@@ -57,9 +57,9 @@ func interact_with_voxel(is_placing: bool, new_block_id: int = 1) -> void:
 	
 	# 5. Передаем координаты в API сектора
 	if is_placing:
-		sector.set_block(voxel_coords.x, voxel_coords.y, voxel_coords.z, new_block_id)
+		sector.set_block(voxel_coords.x, voxel_coords.y, voxel_coords.z, new_block_name)
 	else:
-		sector.set_block(voxel_coords.x, voxel_coords.y, voxel_coords.z, 0) # 0 - Воздух
+		sector.set_block(voxel_coords.x, voxel_coords.y, voxel_coords.z, "cora:void") # 0 - Воздух
 
 func _physics_process(delta: float) -> void:
 	if !is_on_floor():
@@ -89,7 +89,7 @@ func _unhandled_input(event: InputEvent) -> void:
 				raycast.get_collider(), 
 				raycast.get_collision_point(), 
 				raycast.get_collision_normal(), 
-				0
+				"cora:void"
 			)
 			
 	elif event.is_action_pressed("rmb"):
@@ -99,5 +99,5 @@ func _unhandled_input(event: InputEvent) -> void:
 				raycast.get_collider(), 
 				raycast.get_collision_point(), 
 				raycast.get_collision_normal(), 
-				1 
+				"cora:stone" 
 			)
